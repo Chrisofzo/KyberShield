@@ -1,0 +1,82 @@
+name: Build Electron Apps
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      
+      - name: Install dependencies
+        working-directory: ./kyberlink_electron
+        run: npm install
+      
+      - name: Build Windows app
+        working-directory: ./kyberlink_electron
+        run: npm run build:win
+      
+      - name: Upload Windows build
+        uses: actions/upload-artifact@v3
+        with:
+          name: windows-build
+          path: kyberlink_electron/dist/*.exe
+
+  build-mac:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      
+      - name: Install dependencies
+        working-directory: ./kyberlink_electron
+        run: npm install
+      
+      - name: Build Mac app
+        working-directory: ./kyberlink_electron
+        run: npm run build:mac
+      
+      - name: Upload Mac build
+        uses: actions/upload-artifact@v3
+        with:
+          name: mac-build
+          path: kyberlink_electron/dist/*.dmg
+
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      
+      - name: Install dependencies
+        working-directory: ./kyberlink_electron
+        run: npm install
+      
+      - name: Build Linux app
+        working-directory: ./kyberlink_electron
+        run: npm run build:linux
+      
+      - name: Upload Linux builds
+        uses: actions/upload-artifact@v3
+        with:
+          name: linux-build
+          path: |
+            kyberlink_electron/dist/*.deb
+            kyberlink_electron/dist/*.AppImage
+            kyberlink_electron/dist/*.rpm

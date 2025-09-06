@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Shield Gradient -->
+    <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0ea5e9"/>
+      <stop offset="50%" stop-color="#06b6d4"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
+    </linearGradient>
+    
+    <!-- Glow Effect -->
+    <filter id="glow" x="-25%" y="-25%" width="150%" height="150%">
+      <feGaussianBlur stdDeviation="2"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 0.055 0 0 0 0 0.647 0 0 0 0 0.914 0 0 0 0.5 0"/>
+    </filter>
+    
+    <!-- Quantum Pattern -->
+    <pattern id="quantum" x="0" y="0" width="6" height="6" patternUnits="userSpaceOnUse">
+      <rect width="6" height="6" fill="none"/>
+      <circle cx="3" cy="3" r="0.4" fill="rgba(255,255,255,0.4)">
+        <animate attributeName="opacity" values="0.4;0.8;0.4" dur="2.5s" repeatCount="indefinite"/>
+      </circle>
+      <path d="M0,3 L6,3 M3,0 L3,6" stroke="rgba(255,255,255,0.2)" stroke-width="0.3"/>
+    </pattern>
+    
+    <!-- Shimmer -->
+    <linearGradient id="shine" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="rgba(255,255,255,0)"/>
+      <stop offset="50%" stop-color="rgba(255,255,255,0.6)"/>
+      <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+      <animateTransform attributeName="gradientTransform" type="translate" values="-64 -64; 128 128; -64 -64" dur="3s" repeatCount="indefinite"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Shield Shape -->
+  <g>
+    <!-- Shadow -->
+    <path d="M32 6 L44 11 L52 28 L48 45 L32 50 L16 45 L12 28 L20 11 Z" 
+          fill="rgba(0,0,0,0.2)" 
+          transform="translate(1.5,1.5)"/>
+    
+    <!-- Main Shield -->
+    <path d="M32 6 L44 11 L52 28 L48 45 L32 50 L16 45 L12 28 L20 11 Z" 
+          fill="url(#shieldGrad)" 
+          filter="url(#glow)"
+          stroke="rgba(255,255,255,0.4)"
+          stroke-width="1"/>
+    
+    <!-- Quantum Grid -->
+    <clipPath id="clip">
+      <path d="M32 6 L44 11 L52 28 L48 45 L32 50 L16 45 L12 28 L20 11 Z"/>
+    </clipPath>
+    
+    <rect x="12" y="6" width="40" height="44" 
+          fill="url(#quantum)" 
+          clip-path="url(#clip)" 
+          opacity="0.7"/>
+    
+    <!-- Circuit Lines -->
+    <g clip-path="url(#clip)" opacity="0.8">
+      <path d="M20 22 L26 22 L30 26 L34 26 L38 30 L44 30" 
+            stroke="rgba(6,182,212,0.8)" 
+            stroke-width="1.2" 
+            fill="none">
+        <animate attributeName="stroke-opacity" values="0.4;1;0.4" dur="2s" repeatCount="indefinite"/>
+      </path>
+      <path d="M20 34 L24 34 L28 30 L32 30 L36 26 L44 26" 
+            stroke="rgba(139,92,246,0.8)" 
+            stroke-width="1.2" 
+            fill="none">
+        <animate attributeName="stroke-opacity" values="1;0.4;1" dur="2s" repeatCount="indefinite"/>
+      </path>
+      <circle cx="30" cy="26" r="1.5" fill="rgba(6,182,212,0.9)">
+        <animate attributeName="r" values="1;2;1" dur="2s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="36" cy="26" r="1.5" fill="rgba(139,92,246,0.9)">
+        <animate attributeName="r" values="2;1;2" dur="2s" repeatCount="indefinite"/>
+      </circle>
+    </g>
+    
+    <!-- Inner Highlight -->
+    <path d="M32 10 L42 14 L48 28 L45 42 L32 46 L19 42 L16 28 L22 14 Z" 
+          fill="rgba(255,255,255,0.2)"/>
+    
+    <!-- Shimmer -->
+    <rect x="12" y="6" width="40" height="44" 
+          fill="url(#shine)" 
+          clip-path="url(#clip)" 
+          opacity="0.3"/>
+    
+    <!-- Lock Icon -->
+    <g>
+      <rect x="28" y="32" width="8" height="9" rx="1.5" 
+            fill="rgba(255,255,255,0.95)" 
+            stroke="rgba(14,165,233,0.4)" 
+            stroke-width="0.5"/>
+      <path d="M30 32 C30 29.5, 31 28.5, 32 28.5 C33 28.5, 34 29.5, 34 32" 
+            fill="none" 
+            stroke="rgba(255,255,255,0.95)" 
+            stroke-width="1.5" 
+            stroke-linecap="round"/>
+      <circle cx="32" cy="35.5" r="1.2" fill="rgba(14,165,233,1)">
+        <animate attributeName="fill" values="rgba(14,165,233,1);rgba(255,255,255,1);rgba(14,165,233,1)" dur="3s" repeatCount="indefinite"/>
+      </circle>
+    </g>
+  </g>
+</svg>

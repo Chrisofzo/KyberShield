@@ -1,0 +1,174 @@
+/* Premium KyberLink Logo Enhancements */
+
+.kyberlink-logo {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 10;
+}
+
+.kyberlink-logo:hover {
+    transform: scale(1.05);
+    filter: drop-shadow(0 4px 20px rgba(0, 212, 255, 0.4));
+}
+
+.kyberlink-logo .nav-logo-icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.kyberlink-logo .nav-logo-icon img {
+    transition: all 0.3s ease;
+}
+
+.kyberlink-logo:hover .nav-logo-icon img {
+    filter: brightness(1.3) drop-shadow(0 0 10px rgba(0, 212, 255, 0.6)) !important;
+    animation: shieldPulse 2s ease-in-out infinite;
+}
+
+.kyberlink-logo .nav-brand,
+.kyberlink-logo .sidebar-brand {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
+    font-weight: 800 !important;
+    font-size: 20px;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, #00d4ff 0%, #0ea5e9 50%, #8b5cf6 100%) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.kyberlink-logo:hover .nav-brand,
+.kyberlink-logo:hover .sidebar-brand {
+    background: linear-gradient(135deg, #00d4ff 0%, #ffffff 30%, #8b5cf6 70%, #ec4899 100%) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+    text-shadow: 0 2px 8px rgba(0, 212, 255, 0.3);
+}
+
+/* Connected State Enhancement */
+.logo-connected .kyberlink-logo .nav-logo-icon img,
+.logo-connected .kyberlink-logo .sidebar-logo-icon img {
+    filter: brightness(1.2) drop-shadow(0 0 15px rgba(0, 212, 255, 0.8)) !important;
+    animation: connectedGlow 2s ease-in-out infinite;
+}
+
+.logo-connected .kyberlink-logo .nav-brand,
+.logo-connected .kyberlink-logo .sidebar-brand {
+    background: linear-gradient(135deg, #00d4ff 0%, #ffffff 40%, #00d4ff 100%) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+    animation: textShimmer 3s ease-in-out infinite;
+}
+
+/* Disconnected State */
+.logo-disconnected .kyberlink-logo .nav-logo-icon img,
+.logo-disconnected .kyberlink-logo .sidebar-logo-icon img {
+    filter: brightness(0.6) saturate(0.3) !important;
+    opacity: 0.6;
+}
+
+.logo-disconnected .kyberlink-logo .nav-brand,
+.logo-disconnected .kyberlink-logo .sidebar-brand {
+    background: linear-gradient(135deg, #6b7280 0%, #9ca3af 100%) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+    opacity: 0.7;
+}
+
+/* Animations */
+@keyframes shieldPulse {
+    0%, 100% { 
+        transform: scale(1);
+        filter: brightness(1.3) drop-shadow(0 0 10px rgba(0, 212, 255, 0.6));
+    }
+    50% { 
+        transform: scale(1.05);
+        filter: brightness(1.5) drop-shadow(0 0 20px rgba(0, 212, 255, 0.9));
+    }
+}
+
+@keyframes connectedGlow {
+    0%, 100% { 
+        filter: brightness(1.2) drop-shadow(0 0 15px rgba(0, 212, 255, 0.8));
+    }
+    50% { 
+        filter: brightness(1.4) drop-shadow(0 0 25px rgba(0, 212, 255, 1));
+    }
+}
+
+@keyframes textShimmer {
+    0%, 100% {
+        background: linear-gradient(135deg, #00d4ff 0%, #ffffff 40%, #00d4ff 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    25% {
+        background: linear-gradient(135deg, #ffffff 0%, #00d4ff 40%, #8b5cf6 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    75% {
+        background: linear-gradient(135deg, #8b5cf6 0%, #00d4ff 40%, #ffffff 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+}
+
+/* Loading Animation */
+.logo-loading .kyberlink-logo .nav-logo-icon img,
+.logo-loading .kyberlink-logo .sidebar-logo-icon img {
+    animation: logoSpin 2s linear infinite;
+}
+
+@keyframes logoSpin {
+    from { 
+        transform: rotate(0deg);
+        filter: brightness(1) drop-shadow(0 0 5px rgba(0, 212, 255, 0.3));
+    }
+    to { 
+        transform: rotate(360deg);
+        filter: brightness(1.2) drop-shadow(0 0 10px rgba(0, 212, 255, 0.6));
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .kyberlink-logo .nav-brand,
+    .kyberlink-logo .sidebar-brand {
+        font-size: 18px;
+    }
+    
+    .kyberlink-logo .nav-logo-icon img,
+    .kyberlink-logo .sidebar-logo-icon img {
+        width: 24px;
+        height: 24px;
+    }
+}
+
+/* Dark theme enhancements */
+.dark-theme .kyberlink-logo:hover {
+    filter: drop-shadow(0 4px 20px rgba(0, 212, 255, 0.6));
+}
+
+/* Light theme adjustments */
+.light-theme .kyberlink-logo .nav-brand,
+.light-theme .kyberlink-logo .sidebar-brand {
+    background: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 50%, #8b5cf6 100%) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+}

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="shieldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00d4ff"/>
+      <stop offset="35%" stop-color="#0ea5e9"/>
+      <stop offset="70%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#ec4899" stop-opacity="0.9"/>
+    </linearGradient>
+    
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/> 
+      </feMerge>
+    </filter>
+    
+    <pattern id="quantumGrid" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+      <rect width="20" height="20" fill="none"/>
+      <path d="M0,10 L20,10 M10,0 L10,20" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+      <circle cx="10" cy="10" r="2" fill="rgba(0,212,255,0.4)">
+        <animate attributeName="r" values="2;3;2" dur="3s" repeatCount="indefinite"/>
+      </circle>
+    </pattern>
+    
+    <linearGradient id="shimmer" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="rgba(255,255,255,0)"/>
+      <stop offset="50%" stop-color="rgba(255,255,255,0.5)"/>
+      <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+      <animateTransform attributeName="gradientTransform" type="translate" values="-512 0; 1024 0; -512 0" dur="4s" repeatCount="indefinite"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="512" height="512" fill="#0f0f23" rx="80"/>
+  
+  <!-- Shield -->
+  <path d="M256 80 C256 80, 300 60, 360 80 C420 100, 440 160, 440 220 C440 320, 400 400, 340 430 C300 450, 300 450, 256 430 C200 400, 72 320, 72 220 C72 160, 92 100, 152 80 C212 60, 256 80, 256 80 Z" 
+        fill="url(#shieldGradient)" 
+        filter="url(#glow)"
+        opacity="0.95"/>
+  
+  <clipPath id="shieldClip">
+    <path d="M256 80 C256 80, 300 60, 360 80 C420 100, 440 160, 440 220 C440 320, 400 400, 340 430 C300 450, 300 450, 256 430 C200 400, 72 320, 72 220 C72 160, 92 100, 152 80 C212 60, 256 80, 256 80 Z"/>
+  </clipPath>
+  
+  <rect x="72" y="80" width="368" height="370" 
+        fill="url(#quantumGrid)" 
+        clip-path="url(#shieldClip)" 
+        opacity="0.8"/>
+  
+  <!-- Border -->
+  <path d="M256 80 C256 80, 300 60, 360 80 C420 100, 440 160, 440 220 C440 320, 400 400, 340 430 C300 450, 300 450, 256 430 C200 400, 72 320, 72 220 C72 160, 92 100, 152 80 C212 60, 256 80, 256 80 Z" 
+        fill="none" 
+        stroke="rgba(255,255,255,0.3)" 
+        stroke-width="4"/>
+  
+  <!-- Inner Highlight -->
+  <path d="M256 120 C280 110, 304 110, 328 120 C352 130, 360 160, 360 190 C360 240, 340 280, 308 300 C292 310, 292 310, 256 300 C220 280, 152 240, 152 190 C152 160, 160 130, 184 120 C208 110, 232 110, 256 120 Z" 
+        fill="rgba(255,255,255,0.12)"/>
+  
+  <!-- Shimmer -->
+  <rect x="72" y="80" width="368" height="370" 
+        fill="url(#shimmer)" 
+        clip-path="url(#shieldClip)" 
+        opacity="0.3"/>
+  
+  <!-- Lock -->
+  <g opacity="0.95">
+    <rect x="230" y="230" width="52" height="60" rx="8" fill="rgba(255,255,255,0.95)"/>
+    <path d="M240 230 C240 210, 250 200, 256 200 C262 200, 272 210, 272 230" 
+          fill="none" 
+          stroke="rgba(255,255,255,0.95)" 
+          stroke-width="6"/>
+    <circle cx="256" cy="250" r="8" fill="#00d4ff">
+      <animate attributeName="fill" values="#00d4ff;#ffffff;#00d4ff" dur="2s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+</svg>

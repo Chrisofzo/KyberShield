@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In - KyberShield VPN</title>
+    <meta name="description" content="Sign in to your KyberShield VPN account for quantum-resistant security and privacy protection.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/static/assets/favicon.ico">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="/static/css/auth.css">
+</head>
+<body>
+    <div class="auth-page">
+        <!-- Background Animation -->
+        <div class="auth-background"></div>
+        
+        <!-- Back to Landing -->
+        <a href="/" class="back-link">
+            <i class="fas fa-arrow-left"></i>
+            <span>Back to Home</span>
+        </a>
+        
+        <div class="auth-container">
+            <!-- Logo Section -->
+            <div class="auth-logo-section">
+                <div class="auth-logo">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h1 class="auth-brand">KyberShield</h1>
+                <p class="auth-tagline">Quantum-Resistant Security</p>
+            </div>
+            
+            <!-- Main Auth Card -->
+            <div class="auth-card">
+                <!-- Tab Navigation -->
+                <div class="auth-tabs">
+                    <button class="auth-tab active" data-tab="signin">Sign In</button>
+                    <button class="auth-tab" data-tab="signup">Sign Up</button>
+                </div>
+                
+                <!-- Demo Credentials Info -->
+                <div class="demo-info">
+                    <div class="demo-title">
+                        <i class="fas fa-info-circle"></i>
+                        Demo Credentials
+                    </div>
+                    <div class="demo-credentials">
+                        <div>
+                            <div class="demo-label">Email</div>
+                            <div class="demo-credential">demo@kyberlink.com</div>
+                        </div>
+                        <div>
+                            <div class="demo-label">Password</div>
+                            <div class="demo-credential">demo123</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Sign In Form -->
+                <form id="signin-form" class="auth-form active">
+                    <div class="form-group">
+                        <label for="signin-email" class="form-label">Email Address</label>
+                        <div style="position: relative;">
+                            <input 
+                                type="email" 
+                                id="signin-email" 
+                                class="form-input" 
+                                placeholder="Enter your email"
+                                value="demo@kyberlink.com"
+                                required
+                            >
+                            <i class="fas fa-envelope input-icon"></i>
+                        </div>
+                        <div id="signin-email-error" class="error-message" style="display: none;">
+                            <i class="fas fa-exclamation-circle"></i>
+                            Please enter a valid email address
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="signin-password" class="form-label">Password</label>
+                        <div style="position: relative;">
+                            <input 
+                                type="password" 
+                                id="signin-password" 
+                                class="form-input" 
+                                placeholder="Enter your password"
+                                value="demo123"
+                                required
+                            >
+                            <i class="fas fa-eye-slash input-icon" onclick="togglePassword('signin-password')"></i>
+                        </div>
+                        <div id="signin-password-error" class="error-message" style="display: none;">
+                            <i class="fas fa-exclamation-circle"></i>
+                            Password is required
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <label style="display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--auth-text-secondary);">
+                                <input type="checkbox" style="margin: 0;"> 
+                                Remember me
+                            </label>
+                            <a href="#" class="auth-link">Forgot password?</a>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="auth-button">
+                        <span>Sign In Securely</span>
+                    </button>
+                </form>
+                
+                <!-- Sign Up Form -->
+                <form id="signup-form" class="auth-form">
+                    <div class="form-group">
+                        <label for="signup-name" class="form-label">Full Name</label>
+                        <div style="position: relative;">
+                            <input 
+                                type="text" 
+                                id="signup-name" 
+                                class="form-input" 
+                                placeholder="Enter your full name"
+                                required
+                            >
+                            <i class="fas fa-user input-icon"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="signup-email" class="form-label">Email Address</label>
+                        <div style="position: relative;">
+                            <input 
+                                type="email" 
+                                id="signup-email" 
+                                class="form-input" 
+                                placeholder="Enter your email"
+                                required
+                            >
+                            <i class="fas fa-envelope input-icon"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="signup-password" class="form-label">Password</label>
+                        <div style="position: relative;">
+                            <input 
+                                type="password" 
+                                id="signup-password" 
+                                class="form-input" 
+                                placeholder="Create a strong password"
+                                required
+                            >
+                            <i class="fas fa-eye-slash input-icon" onclick="togglePassword('signup-password')"></i>
+                        </div>
+                        <div class="password-strength" id="password-strength">
+                            <div class="strength-bar"></div>
+                            <div class="strength-bar"></div>
+                            <div class="strength-bar"></div>
+                            <div class="strength-bar"></div>
+                        </div>
+                        <div class="strength-text" id="strength-text">Password strength: Weak</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="signup-confirm-password" class="form-label">Confirm Password</label>
+                        <div style="position: relative;">
+                            <input 
+                                type="password" 
+                                id="signup-confirm-password" 
+                                class="form-input" 
+                                placeholder="Confirm your password"
+                                required
+                            >
+                            <i class="fas fa-check-circle input-icon" style="color: #10b981; display: none;" id="password-match-icon"></i>
+                        </div>
+                        <div id="password-match-error" class="error-message" style="display: none;">
+                            <i class="fas fa-exclamation-circle"></i>
+                            Passwords do not match
+                        </div>
+                        <div id="password-match-success" class="success-message" style="display: none;">
+                            <i class="fas fa-check-circle"></i>
+                            Passwords match
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label style="display: flex; align-items: flex-start; gap: 12px; font-size: 14px; color: var(--auth-text-secondary); line-height: 1.5;">
+                            <input type="checkbox" required style="margin-top: 2px;"> 
+                            I agree to the <a href="#" class="auth-link primary">Terms of Service</a> and <a href="#" class="auth-link primary">Privacy Policy</a>
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="auth-button">
+                        <span>Create Account</span>
+                    </button>
+                </form>
+                
+                <!-- MFA Verification (Hidden by default) -->
+                <div id="mfa-container" class="mfa-container">
+                    <div class="mfa-title">Two-Factor Authentication</div>
+                    <div class="mfa-description">
+                        Enter the 6-digit code from your authenticator app
+                    </div>
+                    
+                    <div class="mfa-input-group">
+                        <input type="text" class="mfa-digit" maxlength="1" data-index="0">
+                        <input type="text" class="mfa-digit" maxlength="1" data-index="1">
+                        <input type="text" class="mfa-digit" maxlength="1" data-index="2">
+                        <input type="text" class="mfa-digit" maxlength="1" data-index="3">
+                        <input type="text" class="mfa-digit" maxlength="1" data-index="4">
+                        <input type="text" class="mfa-digit" maxlength="1" data-index="5">
+                    </div>
+                    
+                    <button type="button" class="auth-button" onclick="verifyMFA()">
+                        <span>Verify Code</span>
+                    </button>
+                    
+                    <div style="text-align: center; margin-top: 16px;">
+                        <a href="#" class="auth-link" onclick="goBackToLogin()">← Back to login</a>
+                    </div>
+                </div>
+                
+                <!-- Footer Links -->
+                <div class="auth-footer">
+                    <a href="#" class="auth-link">Help Center</a>
+                    <a href="#" class="auth-link">Contact Support</a>
+                    <a href="#" class="auth-link">Privacy Policy</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Enhanced JavaScript -->
+    <script>
+        // Tab Switching with Animation
+        function initTabSwitching() {
+            const tabs = document.querySelectorAll('.auth-tab');
+            const forms = document.querySelectorAll('.auth-form');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const targetTab = tab.getAttribute('data-tab');
+                    
+                    // Remove active states
+                    tabs.forEach(t => t.classList.remove('active'));
+                    forms.forEach(f => f.classList.remove('active'));
+                    
+                    // Add active states
+                    tab.classList.add('active');
+                    document.getElementById(`${targetTab}-form`).classList.add('active');
+                });
+            });
+        }
+        
+        // Password Toggle
+        function togglePassword(inputId) {
+            const input = document.getElementById(inputId);
+            const icon = input.nextElementSibling;
+            
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            }
+        }
+        
+        // Password Strength Checker
+        function initPasswordStrength() {
+            const passwordInput = document.getElementById('signup-password');
+            const strengthBars = document.querySelectorAll('#password-strength .strength-bar');
+            const strengthText = document.getElementById('strength-text');
+            
+            passwordInput.addEventListener('input', () => {
+                const password = passwordInput.value;
+                const strength = calculatePasswordStrength(password);
+                
+                // Reset bars
+                strengthBars.forEach(bar => bar.classList.remove('filled'));
+                
+                // Fill bars based on strength
+                for (let i = 0; i < strength.score; i++) {
+                    strengthBars[i].classList.add('filled');
+                }
+                
+                // Update text
+                strengthText.textContent = `Password strength: ${strength.label}`;
+                strengthText.style.color = strength.color;
+            });
+        }
+        
+        function calculatePasswordStrength(password) {
+            let score = 0;
+            let label = 'Weak';
+            let color = '#ef4444';
+            
+            if (password.length >= 8) score++;
+            if (/[A-Z]/.test(password)) score++;
+            if (/[0-9]/.test(password)) score++;
+            if (/[^A-Za-z0-9]/.test(password)) score++;
+            
+            switch (score) {
+                case 0:
+                case 1:
+                    label = 'Weak';
+                    color = '#ef4444';
+                    break;
+                case 2:
+                    label = 'Fair';
+                    color = '#f59e0b';
+                    break;
+                case 3:
+                    label = 'Good';
+                    color = '#3b82f6';
+                    break;
+                case 4:
+                    label = 'Strong';
+                    color = '#10b981';
+                    break;
+            }
+            
+            return { score, label, color };
+        }
+        
+        // Password Confirmation
+        function initPasswordConfirmation() {
+            const passwordInput = document.getElementById('signup-password');
+            const confirmInput = document.getElementById('signup-confirm-password');
+            const errorDiv = document.getElementById('password-match-error');
+            const successDiv = document.getElementById('password-match-success');
+            const icon = document.getElementById('password-match-icon');
+            
+            confirmInput.addEventListener('input', () => {
+                const password = passwordInput.value;
+                const confirm = confirmInput.value;
+                
+                if (confirm === '') {
+                    errorDiv.style.display = 'none';
+                    successDiv.style.display = 'none';
+                    icon.style.display = 'none';
+                    confirmInput.classList.remove('error', 'success');
+                } else if (password === confirm) {
+                    errorDiv.style.display = 'none';
+                    successDiv.style.display = 'block';
+                    icon.style.display = 'block';
+                    confirmInput.classList.remove('error');
+                    confirmInput.classList.add('success');
+                } else {
+                    errorDiv.style.display = 'block';
+                    successDiv.style.display = 'none';
+                    icon.style.display = 'none';
+                    confirmInput.classList.remove('success');
+                    confirmInput.classList.add('error');
+                }
+            });
+        }
+        
+        // MFA Input Handler
+        function initMFAInputs() {
+            const mfaInputs = document.querySelectorAll('.mfa-digit');
+            
+            mfaInputs.forEach((input, index) => {
+                input.addEventListener('input', (e) => {
+                    const value = e.target.value;
+                    
+                    if (value && index < mfaInputs.length - 1) {
+                        mfaInputs[index + 1].focus();
+                    }
+                });
+                
+                input.addEventListener('keydown', (e) => {
+                    if (e.key === 'Backspace' && !e.target.value && index > 0) {
+                        mfaInputs[index - 1].focus();
+                    }
+                });
+            });
+        }
+        
+        // Form Submissions
+        function initFormSubmissions() {
+            document.getElementById('signin-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const button = e.target.querySelector('.auth-button');
+                
+                const email = document.getElementById('signin-email').value;
+                const password = document.getElementById('signin-password').value;
+                
+                // Show loading state
+                button.classList.add('loading');
+                
+                try {
+                    // Call the actual login API
+                    const response = await fetch('/api/auth/login', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ email, password })
+                    });
+                    
+                    const result = await response.json();
+                    
+                    if (response.ok && result.success) {
+                        if (result.user.mfa_required) {
+                            // Show MFA
+                            showMFA();
+                        } else {
+                            // Success - redirect to dashboard
+                            showSuccess('Login successful! Redirecting...');
+                            setTimeout(() => {
+                                window.location.href = '/dashboard';
+                            }, 1000);
+                        }
+                    } else {
+                        // Show error
+                        showError(result.error || 'Invalid credentials');
+                        button.classList.remove('loading');
+                    }
+                } catch (error) {
+                    console.error('Login error:', error);
+                    showError('Connection failed. Please try again.');
+                    button.classList.remove('loading');
+                }
+            });
+            
+            document.getElementById('signup-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const button = e.target.querySelector('.auth-button');
+                
+                // Validate passwords match
+                const password = document.getElementById('signup-password').value;
+                const confirm = document.getElementById('signup-confirm-password').value;
+                
+                if (password !== confirm) {
+                    showError('Passwords do not match');
+                    return;
+                }
+                
+                // Show loading state
+                button.classList.add('loading');
+                
+                // Simulate API call
+                await new Promise(resolve => setTimeout(resolve, 2000));
+                
+                // Success - redirect to dashboard
+                showSuccess('Account created successfully! Redirecting...');
+                setTimeout(() => {
+                    window.location.href = '/dashboard';
+                }, 1500);
+            });
+        }
+        
+        function showMFA() {
+            document.querySelectorAll('.auth-form').forEach(f => f.style.display = 'none');
+            document.querySelector('.auth-tabs').style.display = 'none';
+            document.querySelector('.demo-info').style.display = 'none';
+            document.getElementById('mfa-container').classList.add('active');
+        }
+        
+        function goBackToLogin() {
+            document.getElementById('mfa-container').classList.remove('active');
+            document.querySelector('.auth-tabs').style.display = 'flex';
+            document.querySelector('.demo-info').style.display = 'block';
+            document.getElementById('signin-form').style.display = 'block';
+            document.getElementById('signin-form').classList.add('active');
+            
+            // Reset button state
+            const button = document.querySelector('#signin-form .auth-button');
+            button.classList.remove('loading');
+        }
+        
+        async function verifyMFA() {
+            const button = document.querySelector('#mfa-container .auth-button');
+            const inputs = document.querySelectorAll('.mfa-digit');
+            const code = Array.from(inputs).map(input => input.value).join('');
+            
+            if (code.length !== 6) {
+                showError('Please enter all 6 digits');
+                return;
+            }
+            
+            // Show loading
+            button.classList.add('loading');
+            
+            try {
+                // Call the actual MFA verification API
+                const response = await fetch('/api/auth/mfa/verify', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ code })
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok && result.success) {
+                    // Success - redirect to dashboard
+                    showSuccess('Authentication successful! Redirecting...');
+                    setTimeout(() => {
+                        window.location.href = '/dashboard';
+                    }, 1000);
+                } else {
+                    // Show error
+                    showError(result.error || 'Invalid MFA code');
+                    button.classList.remove('loading');
+                }
+            } catch (error) {
+                console.error('MFA verification error:', error);
+                showError('Verification failed. Please try again.');
+                button.classList.remove('loading');
+            }
+        }
+        
+        function showError(message) {
+            // Create and show error notification
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: linear-gradient(135deg, #ef4444, #dc2626);
+                color: white;
+                padding: 16px 20px;
+                border-radius: 12px;
+                font-weight: 600;
+                z-index: 1000;
+                animation: slideIn 0.3s ease;
+                box-shadow: 0 10px 30px rgba(239, 68, 68, 0.3);
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 4000);
+        }
+        
+        function showSuccess(message) {
+            // Create and show success notification
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: linear-gradient(135deg, #10b981, #059669);
+                color: white;
+                padding: 16px 20px;
+                border-radius: 12px;
+                font-weight: 600;
+                z-index: 1000;
+                animation: slideIn 0.3s ease;
+                box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 4000);
+        }
+        
+        // Add slide-in animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Initialize all features
+        document.addEventListener('DOMContentLoaded', () => {
+            initTabSwitching();
+            initPasswordStrength();
+            initPasswordConfirmation();
+            initMFAInputs();
+            initFormSubmissions();
+        });
+    </script>
+</body>
+</html>

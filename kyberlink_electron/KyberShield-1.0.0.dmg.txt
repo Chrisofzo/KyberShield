@@ -1,0 +1,1 @@
+This is a placeholder for KyberShield VPN Mac installer. Please build on macOS using 'npm run build:mac'

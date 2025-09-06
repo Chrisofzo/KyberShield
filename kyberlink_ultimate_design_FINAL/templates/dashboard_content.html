@@ -1,0 +1,1102 @@
+<!-- KyberShield VPN Dashboard -->
+<div class="dashboard-container">
+    <!-- Header with Branding -->
+    <header class="dashboard-header">
+        <div class="brand-container">
+            <img src="/static/assets/logos/kyberlink-shield-pure.png" alt="KyberShield" class="brand-logo">
+            <span class="brand-text">KyberShield VPN</span>
+        </div>
+        <div class="header-actions">
+            <span class="user-email" id="userEmail">demo@kybershield.com</span>
+            
+            <!-- Settings Dropdown Menu -->
+            <div class="settings-dropdown">
+                <button class="settings-btn" onclick="toggleSettingsMenu()">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                    <i class="fas fa-chevron-down dropdown-arrow"></i>
+                </button>
+                <div class="settings-menu" id="settingsMenu">
+                    <a href="#" onclick="openSettings('account'); return false;">
+                        <i class="fas fa-user"></i>
+                        <span>Account Settings</span>
+                    </a>
+                    <a href="#" onclick="openSettings('killswitch'); return false;">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Kill Switch</span>
+                    </a>
+                    <a href="#" onclick="openSettings('connection'); return false;">
+                        <i class="fas fa-network-wired"></i>
+                        <span>Connection Settings</span>
+                    </a>
+                    <a href="#" onclick="openSettings('privacy'); return false;">
+                        <i class="fas fa-lock"></i>
+                        <span>Privacy & Security</span>
+                    </a>
+                    <a href="#" onclick="openSettings('advanced'); return false;">
+                        <i class="fas fa-sliders-h"></i>
+                        <span>Advanced Settings</span>
+                    </a>
+                    <div class="menu-divider"></div>
+                    <a href="#" onclick="openSettings('subscription'); return false;">
+                        <i class="fas fa-credit-card"></i>
+                        <span>Subscription</span>
+                    </a>
+                    <a href="#" onclick="openSettings('help'); return false;">
+                        <i class="fas fa-question-circle"></i>
+                        <span>Help & Support</span>
+                    </a>
+                    <div class="menu-divider"></div>
+                    <a href="#" onclick="handleLogout(); return false;" class="logout-link">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="dashboard-main">
+        <!-- Connection Status Bar -->
+        <div class="status-bar">
+            <div class="status-indicator" id="statusIndicator">
+                <span class="status-dot"></span>
+                <span class="status-text" id="statusText">Not Connected</span>
+            </div>
+            <div class="connection-info" id="connectionInfo">
+                <span id="selectedServerDisplay">No server selected</span>
+            </div>
+        </div>
+
+        <!-- Server Selection Dropdown -->
+        <div class="server-controls">
+            <div class="server-select-wrapper">
+                <label for="serverSelect">Select Server Location:</label>
+                <select id="serverSelect" onchange="selectServer(this.value)">
+                    <option value="">Choose a server...</option>
+                    <option value="us-ny">🇺🇸 New York, USA</option>
+                    <option value="uk-london">🇬🇧 London, UK</option>
+                    <option value="jp-tokyo">🇯🇵 Tokyo, Japan</option>
+                    <option value="sg-singapore">🇸🇬 Singapore</option>
+                    <option value="de-frankfurt">🇩🇪 Frankfurt, Germany</option>
+                    <option value="au-sydney">🇦🇺 Sydney, Australia</option>
+                    <option value="ca-toronto">🇨🇦 Toronto, Canada</option>
+                    <option value="se-stockholm">🇸🇪 Stockholm, Sweden</option>
+                    <option value="br-saopaulo">🇧🇷 São Paulo, Brazil</option>
+                    <option value="in-mumbai">🇮🇳 Mumbai, India</option>
+                </select>
+            </div>
+            <div class="ping-display" id="pingDisplay">
+                <i class="fas fa-signal"></i>
+                <span id="pingValue">-- ms</span>
+            </div>
+        </div>
+
+        <!-- Interactive World Map -->
+        <div class="map-container" id="mapContainer">
+            <div id="worldMap"></div>
+        </div>
+
+        <!-- Connect Button -->
+        <div class="connect-controls">
+            <button class="connect-btn" id="connectBtn" onclick="toggleConnection()">
+                <i class="fas fa-power-off"></i>
+                <span id="connectBtnText">Connect</span>
+            </button>
+        </div>
+
+        <!-- Connection Stats -->
+        <div class="stats-container" id="statsContainer" style="display: none;">
+            <div class="stat-item">
+                <i class="fas fa-download"></i>
+                <div class="stat-details">
+                    <span class="stat-value" id="downloadSpeed">0</span>
+                    <span class="stat-label">Mbps Download</span>
+                </div>
+            </div>
+            <div class="stat-item">
+                <i class="fas fa-upload"></i>
+                <div class="stat-details">
+                    <span class="stat-value" id="uploadSpeed">0</span>
+                    <span class="stat-label">Mbps Upload</span>
+                </div>
+            </div>
+            <div class="stat-item">
+                <i class="fas fa-shield-alt"></i>
+                <div class="stat-details">
+                    <span class="stat-value">256-bit</span>
+                    <span class="stat-label">Encryption</span>
+                </div>
+            </div>
+            <div class="stat-item">
+                <i class="fas fa-clock"></i>
+                <div class="stat-details">
+                    <span class="stat-value" id="uptime">00:00</span>
+                    <span class="stat-label">Uptime</span>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<!-- Styles -->
+<style>
+/* Reset and Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #f8f9fa;
+    color: #212529;
+}
+
+/* Dashboard Container */
+.dashboard-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+}
+
+/* Header */
+.dashboard-header {
+    background: #ffffff;
+    border-bottom: 1px solid #e9ecef;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+.brand-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.brand-logo {
+    width: 40px;
+    height: 40px;
+}
+
+.brand-text {
+    font-size: 24px;
+    font-weight: 700;
+    background: linear-gradient(90deg, #1e3a8a, #0ea5e9);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.user-email {
+    color: #6c757d;
+    font-size: 14px;
+}
+
+.logout-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: #ffffff;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    color: #495057;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.logout-btn:hover {
+    background: #f8f9fa;
+    border-color: #adb5bd;
+    color: #212529;
+}
+
+/* Settings Dropdown Styles */
+.settings-dropdown {
+    position: relative;
+}
+
+.settings-btn {
+    background: linear-gradient(135deg, #1a3d7c, #2a5eb0);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.settings-btn:hover {
+    background: linear-gradient(135deg, #2a5eb0, #3a6fbf);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(42, 94, 176, 0.3);
+}
+
+.dropdown-arrow {
+    transition: transform 0.3s ease;
+    font-size: 10px;
+    margin-left: 4px;
+}
+
+.settings-dropdown.active .dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+.settings-menu {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    min-width: 220px;
+    padding: 8px 0;
+    display: none;
+    z-index: 1000;
+    animation: slideDown 0.3s ease;
+}
+
+.settings-dropdown.active .settings-menu {
+    display: block;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.settings-menu a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 20px;
+    color: #333;
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.settings-menu a:hover {
+    background: #f0f5ff;
+    color: #2a5eb0;
+}
+
+.settings-menu a i {
+    width: 16px;
+    text-align: center;
+    color: #666;
+}
+
+.settings-menu a:hover i {
+    color: #2a5eb0;
+}
+
+.menu-divider {
+    height: 1px;
+    background: #e5e5e5;
+    margin: 8px 0;
+}
+
+.logout-link {
+    color: #dc3545 !important;
+}
+
+.logout-link:hover {
+    background: #fff5f5 !important;
+    color: #c82333 !important;
+}
+
+.logout-link i {
+    color: #dc3545 !important;
+}
+
+/* Main Content */
+.dashboard-main {
+    flex: 1;
+    padding: 2rem;
+    max-width: 1400px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+/* Status Bar */
+.status-bar {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.status-dot {
+    width: 10px;
+    height: 10px;
+    background: #dc3545;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+.status-dot.connected {
+    background: #28a745;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.status-text {
+    font-weight: 600;
+    color: #212529;
+}
+
+.connection-info {
+    color: #6c757d;
+    font-size: 14px;
+}
+
+/* Server Controls */
+.server-controls {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-end;
+    margin-bottom: 2rem;
+}
+
+.server-select-wrapper {
+    flex: 1;
+    max-width: 400px;
+}
+
+.server-select-wrapper label {
+    display: block;
+    margin-bottom: 8px;
+    color: #495057;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+#serverSelect {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    background: #ffffff;
+    font-size: 15px;
+    color: #212529;
+    cursor: pointer;
+    transition: border-color 0.2s;
+}
+
+#serverSelect:hover,
+#serverSelect:focus {
+    border-color: #0ea5e9;
+    outline: none;
+}
+
+.ping-display {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background: #f8f9fa;
+    border-radius: 6px;
+    color: #6c757d;
+    font-size: 14px;
+}
+
+.ping-display i {
+    color: #28a745;
+}
+
+/* Map Container */
+.map-container {
+    background: #ffffff;
+    border: 1px solid #dee2e6;
+    border-radius: 12px;
+    height: 500px;
+    margin-bottom: 2rem;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+}
+
+#worldMap {
+    width: 100%;
+    height: 100%;
+}
+
+/* Connect Controls */
+.connect-controls {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.connect-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 32px;
+    background: linear-gradient(135deg, #1e3a8a, #0ea5e9);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 4px 12px rgba(14, 165, 233, 0.2);
+}
+
+.connect-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(14, 165, 233, 0.3);
+}
+
+.connect-btn.connected {
+    background: linear-gradient(135deg, #dc3545, #c82333);
+}
+
+.connect-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Stats Container */
+.stats-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    padding: 1.5rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.stat-item i {
+    font-size: 24px;
+    color: #0ea5e9;
+}
+
+.stat-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-value {
+    font-size: 20px;
+    font-weight: 600;
+    color: #212529;
+}
+
+.stat-label {
+    font-size: 12px;
+    color: #6c757d;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Leaflet Map Customization */
+.leaflet-container {
+    background: #e3f2fd;
+}
+
+.server-marker {
+    background: #1e3a8a;
+    border: 3px solid white;
+    border-radius: 50%;
+    width: 12px;
+    height: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.server-marker:hover {
+    transform: scale(1.4);
+    background: #0ea5e9;
+}
+
+.server-marker.selected {
+    background: #28a745;
+    transform: scale(1.5);
+    animation: bounce 0.5s;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: scale(1.5); }
+    50% { transform: scale(1.8); }
+}
+
+.leaflet-popup-content-wrapper {
+    border-radius: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.leaflet-popup-content {
+    margin: 12px;
+    font-family: 'Inter', sans-serif;
+}
+
+.popup-title {
+    font-weight: 600;
+    font-size: 14px;
+    color: #212529;
+    margin-bottom: 4px;
+}
+
+.popup-info {
+    font-size: 12px;
+    color: #6c757d;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .dashboard-header {
+        padding: 1rem;
+    }
+    
+    .brand-text {
+        font-size: 20px;
+    }
+    
+    .dashboard-main {
+        padding: 1rem;
+    }
+    
+    .map-container {
+        height: 350px;
+    }
+    
+    .server-controls {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .server-select-wrapper {
+        max-width: 100%;
+    }
+    
+    .stats-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .header-actions {
+        gap: 10px;
+    }
+    
+    .user-email {
+        display: none;
+    }
+    
+    .stats-container {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+
+<!-- Dashboard JavaScript -->
+<script>
+// Make all functions immediately available globally
+window.toggleSettingsMenu = function() {
+    const dropdown = document.querySelector('.settings-dropdown');
+    if (dropdown) {
+        dropdown.classList.toggle('active');
+        
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function closeDropdown(e) {
+            if (!dropdown.contains(e.target)) {
+                dropdown.classList.remove('active');
+                document.removeEventListener('click', closeDropdown);
+            }
+        }, true);
+    }
+};
+
+window.openSettings = function(section) {
+    const dropdown = document.querySelector('.settings-dropdown');
+    if (dropdown) {
+        dropdown.classList.remove('active');
+    }
+    
+    // Show different settings based on section
+    switch(section) {
+        case 'account':
+            alert('Account Settings - Coming Soon!\nManage your profile, email, and password.');
+            break;
+        case 'killswitch':
+            alert('Kill Switch Settings - Coming Soon!\nEnsure your connection stays secure if VPN drops.');
+            break;
+        case 'connection':
+            alert('Connection Settings - Coming Soon!\nConfigure protocols, ports, and auto-connect options.');
+            break;
+        case 'privacy':
+            alert('Privacy & Security - Coming Soon!\nManage DNS settings, leak protection, and more.');
+            break;
+        case 'advanced':
+            alert('Advanced Settings - Coming Soon!\nConfigure split tunneling, custom DNS, and other advanced features.');
+            break;
+        case 'subscription':
+            alert('Subscription - Coming Soon!\nView your plan details and manage billing.');
+            break;
+        case 'help':
+            alert('Help & Support - Coming Soon!\nAccess FAQs, guides, and contact support.');
+            break;
+    }
+    return false;
+};
+
+window.handleLogout = function() {
+    if (confirm('Are you sure you want to logout?')) {
+        fetch('/api/auth/logout', {
+            method: 'POST',
+            credentials: 'include'
+        }).then(() => {
+            window.location.href = '/login';
+        }).catch(() => {
+            window.location.href = '/login';
+        });
+    }
+    return false;
+};
+
+// Global variables (accessible throughout dashboard)
+var map = null;
+var markers = {};
+var selectedServerId = null;
+var isConnected = false;
+var connectionTimer = null;
+var startTime = null;
+
+// Server data with coordinates
+const servers = {
+    'us-ny': { 
+        name: 'New York, USA', 
+        lat: 40.7128, 
+        lng: -74.0060, 
+        flag: '🇺🇸',
+        ping: 15
+    },
+    'uk-london': { 
+        name: 'London, UK', 
+        lat: 51.5074, 
+        lng: -0.1278, 
+        flag: '🇬🇧',
+        ping: 25
+    },
+    'jp-tokyo': { 
+        name: 'Tokyo, Japan', 
+        lat: 35.6762, 
+        lng: 139.6503, 
+        flag: '🇯🇵',
+        ping: 120
+    },
+    'sg-singapore': { 
+        name: 'Singapore', 
+        lat: 1.3521, 
+        lng: 103.8198, 
+        flag: '🇸🇬',
+        ping: 90
+    },
+    'de-frankfurt': { 
+        name: 'Frankfurt, Germany', 
+        lat: 50.1109, 
+        lng: 8.6821, 
+        flag: '🇩🇪',
+        ping: 30
+    },
+    'au-sydney': { 
+        name: 'Sydney, Australia', 
+        lat: -33.8688, 
+        lng: 151.2093, 
+        flag: '🇦🇺',
+        ping: 180
+    },
+    'ca-toronto': { 
+        name: 'Toronto, Canada', 
+        lat: 43.6532, 
+        lng: -79.3832, 
+        flag: '🇨🇦',
+        ping: 20
+    },
+    'se-stockholm': { 
+        name: 'Stockholm, Sweden', 
+        lat: 59.3293, 
+        lng: 18.0686, 
+        flag: '🇸🇪',
+        ping: 35
+    },
+    'br-saopaulo': { 
+        name: 'São Paulo, Brazil', 
+        lat: -23.5505, 
+        lng: -46.6333, 
+        flag: '🇧🇷',
+        ping: 140
+    },
+    'in-mumbai': { 
+        name: 'Mumbai, India', 
+        lat: 19.0760, 
+        lng: 72.8777, 
+        flag: '🇮🇳',
+        ping: 85
+    }
+};
+
+// Initialize when dashboard loads
+function initDashboard() {
+    console.log('Dashboard initialization starting...');
+    
+    // Check if map container exists
+    const mapElement = document.getElementById('worldMap');
+    if (!mapElement) {
+        console.log('Map container not found, retrying...');
+        setTimeout(initDashboard, 500);
+        return;
+    }
+    
+    // Check if Leaflet is already loaded
+    if (typeof L !== 'undefined') {
+        console.log('Leaflet already loaded, initializing map...');
+        initializeMap();
+        loadUserInfo();
+        return;
+    }
+    
+    console.log('Loading Leaflet library...');
+    // Load Leaflet CSS
+    if (!document.querySelector('link[href*="leaflet"]')) {
+        const leafletCSS = document.createElement('link');
+        leafletCSS.rel = 'stylesheet';
+        leafletCSS.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+        document.head.appendChild(leafletCSS);
+    }
+    
+    // Load Leaflet JS
+    if (!document.querySelector('script[src*="leaflet"]')) {
+        const leafletJS = document.createElement('script');
+        leafletJS.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+        leafletJS.onload = function() {
+            // Initialize map after Leaflet loads
+            console.log('Leaflet loaded successfully');
+            setTimeout(function() {
+                console.log('Initializing map and loading user info...');
+                initializeMap();
+                loadUserInfo();
+            }, 100);
+        };
+        leafletJS.onerror = function() {
+            console.error('Failed to load Leaflet library, trying alternate CDN...');
+            // Try alternate CDN
+            const altLeafletJS = document.createElement('script');
+            altLeafletJS.src = 'https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js';
+            altLeafletJS.onload = function() {
+                console.log('Leaflet loaded from alternate CDN');
+                initializeMap();
+                loadUserInfo();
+            };
+            document.head.appendChild(altLeafletJS);
+        };
+        document.head.appendChild(leafletJS);
+    }
+}
+
+// Call initialization after DOM is ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(initDashboard, 100);
+    });
+} else {
+    setTimeout(initDashboard, 100);
+}
+
+// Initialize the Leaflet map
+function initializeMap() {
+    try {
+        // Check if map container exists
+        const mapContainer = document.getElementById('worldMap');
+        if (!mapContainer) {
+            console.error('Map container not found');
+            return;
+        }
+        
+        // Check if map already initialized
+        if (map !== null) {
+            console.log('Map already initialized');
+            return;
+        }
+        
+        console.log('Creating Leaflet map...');
+        // Create map centered on world
+        map = L.map('worldMap', {
+            center: [20, 0],
+            zoom: 2,
+            minZoom: 2,
+            maxZoom: 6,
+            worldCopyJump: true,
+            zoomControl: true
+        });
+    
+    // Add tile layer with light theme
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+        attribution: '© OpenStreetMap contributors',
+        subdomains: 'abcd',
+        maxZoom: 19
+    }).addTo(map);
+    
+    // Add server markers
+    Object.keys(servers).forEach(serverId => {
+        const server = servers[serverId];
+        
+        // Create custom div icon for marker
+        const icon = L.divIcon({
+            className: 'server-marker',
+            html: '',
+            iconSize: [12, 12],
+            iconAnchor: [6, 6]
+        });
+        
+        // Create marker
+        const marker = L.marker([server.lat, server.lng], { 
+            icon: icon,
+            title: server.name
+        }).addTo(map);
+        
+        // Create popup content
+        const popupContent = `
+            <div class="popup-content">
+                <div class="popup-title">${server.flag} ${server.name}</div>
+                <div class="popup-info">Ping: ${server.ping}ms</div>
+                <div class="popup-info">Click to select</div>
+            </div>
+        `;
+        
+        marker.bindPopup(popupContent);
+        
+        // Handle marker click
+        marker.on('click', function() {
+            selectServer(serverId);
+        });
+        
+        // Store marker reference
+        markers[serverId] = marker;
+    });
+    
+    console.log('Map initialized successfully with', Object.keys(markers).length, 'server markers');
+    } catch (error) {
+        console.error('Error initializing map:', error);
+    }
+}
+
+// Select server function - make globally accessible
+window.selectServer = function(serverId) {
+    if (!serverId || !servers[serverId]) return;
+    
+    selectedServerId = serverId;
+    const server = servers[selectedServerId];
+    
+    // Update dropdown
+    document.getElementById('serverSelect').value = serverId;
+    
+    // Update selected server display
+    document.getElementById('selectedServerDisplay').textContent = 
+        `${server.flag} ${server.name}`;
+    
+    // Update ping display
+    document.getElementById('pingValue').textContent = `${server.ping} ms`;
+    
+    // Update map markers
+    Object.keys(markers).forEach(id => {
+        const markerElement = markers[id].getElement();
+        if (markerElement) {
+            if (id === serverId) {
+                markerElement.classList.add('selected');
+            } else {
+                markerElement.classList.remove('selected');
+            }
+        }
+    });
+    
+    // Center map on selected server
+    map.flyTo([server.lat, server.lng], 4, {
+        animate: true,
+        duration: 1
+    });
+    
+    // Close any open popups
+    map.closePopup();
+}
+
+// Toggle VPN connection - make globally accessible  
+window.toggleConnection = function() {
+    if (!selectedServerId) {
+        alert('Please select a server location first');
+        return;
+    }
+    
+    const btn = document.getElementById('connectBtn');
+    btn.disabled = true;
+    
+    // Simulate connection delay
+    setTimeout(() => {
+        if (!isConnected) {
+            // Connect
+            isConnected = true;
+            updateConnectionUI(true);
+            startConnectionTimer();
+            showConnectionStats();
+        } else {
+            // Disconnect
+            isConnected = false;
+            updateConnectionUI(false);
+            stopConnectionTimer();
+            hideConnectionStats();
+        }
+        btn.disabled = false;
+    }, 1000);
+}
+
+// Update UI based on connection status
+function updateConnectionUI(connected) {
+    const statusDot = document.querySelector('.status-dot');
+    const statusText = document.getElementById('statusText');
+    const connectBtn = document.getElementById('connectBtn');
+    const connectBtnText = document.getElementById('connectBtnText');
+    
+    if (connected) {
+        statusDot.classList.add('connected');
+        statusText.textContent = 'Connected';
+        connectBtn.classList.add('connected');
+        connectBtnText.textContent = 'Disconnect';
+        
+        // Update connection info
+        const server = servers[selectedServerId];
+        document.getElementById('connectionInfo').innerHTML = 
+            `Connected to: <strong>${server.flag} ${server.name}</strong>`;
+    } else {
+        statusDot.classList.remove('connected');
+        statusText.textContent = 'Not Connected';
+        connectBtn.classList.remove('connected');
+        connectBtnText.textContent = 'Connect';
+        document.getElementById('connectionInfo').innerHTML = 
+            '<span id="selectedServerDisplay">No server selected</span>';
+        
+        // Restore selected server display if one is selected
+        if (selectedServerId) {
+            const server = servers[selectedServerId];
+            document.getElementById('selectedServerDisplay').textContent = 
+                `${server.flag} ${server.name}`;
+        }
+    }
+}
+
+// Show connection statistics
+function showConnectionStats() {
+    const statsContainer = document.getElementById('statsContainer');
+    statsContainer.style.display = 'grid';
+    
+    // Simulate dynamic stats
+    setInterval(() => {
+        if (isConnected) {
+            document.getElementById('downloadSpeed').textContent = 
+                (Math.random() * 100 + 50).toFixed(1);
+            document.getElementById('uploadSpeed').textContent = 
+                (Math.random() * 50 + 20).toFixed(1);
+        }
+    }, 2000);
+}
+
+// Hide connection statistics
+function hideConnectionStats() {
+    const statsContainer = document.getElementById('statsContainer');
+    statsContainer.style.display = 'none';
+    document.getElementById('downloadSpeed').textContent = '0';
+    document.getElementById('uploadSpeed').textContent = '0';
+    document.getElementById('uptime').textContent = '00:00';
+}
+
+// Start connection timer
+function startConnectionTimer() {
+    startTime = Date.now();
+    connectionTimer = setInterval(updateUptime, 1000);
+}
+
+// Stop connection timer
+function stopConnectionTimer() {
+    if (connectionTimer) {
+        clearInterval(connectionTimer);
+        connectionTimer = null;
+    }
+    startTime = null;
+}
+
+// Update uptime display
+function updateUptime() {
+    if (!startTime) return;
+    
+    const elapsed = Math.floor((Date.now() - startTime) / 1000);
+    const minutes = Math.floor(elapsed / 60);
+    const seconds = elapsed % 60;
+    const formatted = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    document.getElementById('uptime').textContent = formatted;
+}
+
+// Load user info
+async function loadUserInfo() {
+    try {
+        const response = await fetch('/api/auth/status', {
+            credentials: 'include'
+        });
+        
+        if (response.ok) {
+            const data = await response.json();
+            if (data.user) {
+                document.getElementById('userEmail').textContent = data.user;
+            }
+        }
+    } catch (error) {
+        console.error('Failed to load user info:', error);
+    }
+}
+
+// Functions are defined at the top of the script as window.functionName
+</script>

@@ -1,0 +1,616 @@
+<!-- KyberShield Professional Sign Up Page -->
+<div class="signup-page">
+    <!-- Background Pattern -->
+    <div class="signup-background"></div>
+    
+    <!-- Signup Card -->
+    <div class="signup-card">
+        <!-- Logo and Branding -->
+        <div class="signup-header">
+            <div class="signup-logo">
+                <img src="/static/assets/logos/kyberlink-shield-pure.png" alt="KyberShield Shield" style="width: 80px; height: 80px;">
+            </div>
+            <h1 class="page-title">Join KyberShield VPN</h1>
+            <div class="signup-card-header">
+                <h2 class="card-title">Create Your Secure Account</h2>
+                <p class="card-subtitle">Experience Quantum-Resistant Protection Today</p>
+            </div>
+        </div>
+        
+        <!-- Signup Form -->
+        <form class="signup-form" id="signupForm">
+            <div class="form-group">
+                <div class="input-container">
+                    <input type="text" id="username" name="username" required placeholder="Username">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <div class="input-container">
+                    <input type="email" id="email" name="email" placeholder="Email Address (optional)">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <div class="input-container">
+                    <input type="password" id="password" name="password" required placeholder="Password" minlength="8">
+                    <button type="button" class="password-toggle" onclick="togglePassword('password')">
+                        <span class="toggle-icon" id="passwordToggle"><i class="fas fa-eye"></i></span>
+                    </button>
+                </div>
+                <small class="password-hint">Must be at least 8 characters with numbers and symbols</small>
+            </div>
+            
+            <div class="form-group">
+                <div class="input-container">
+                    <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Confirm Password" minlength="8">
+                    <button type="button" class="password-toggle" onclick="togglePassword('confirmPassword')">
+                        <span class="toggle-icon" id="confirmToggle"><i class="fas fa-eye"></i></span>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Plan Selection -->
+            <div class="plan-selection">
+                <h3>Choose Your Plan</h3>
+                <div class="plan-options">
+                    <label class="plan-option">
+                        <input type="radio" name="plan" value="free" checked>
+                        <div class="plan-card">
+                            <span class="plan-name">Free</span>
+                            <span class="plan-price">$0/mo</span>
+                            <span class="plan-features">Basic Protection</span>
+                        </div>
+                    </label>
+                    
+                    <label class="plan-option">
+                        <input type="radio" name="plan" value="premium">
+                        <div class="plan-card recommended">
+                            <span class="plan-badge">Recommended</span>
+                            <span class="plan-name">Premium</span>
+                            <span class="plan-price">$9.99/mo</span>
+                            <span class="plan-features">Full Features</span>
+                        </div>
+                    </label>
+                    
+                    <label class="plan-option">
+                        <input type="radio" name="plan" value="enterprise">
+                        <div class="plan-card">
+                            <span class="plan-name">Enterprise</span>
+                            <span class="plan-price">$29.99/mo</span>
+                            <span class="plan-features">Business Grade</span>
+                        </div>
+                    </label>
+                </div>
+            </div>
+            
+            <div class="form-options">
+                <label class="terms-checkbox">
+                    <input type="checkbox" name="terms" required>
+                    <span class="checkmark"></span>
+                    I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
+                </label>
+            </div>
+            
+            <div class="form-options">
+                <label class="newsletter-checkbox">
+                    <input type="checkbox" name="newsletter">
+                    <span class="checkmark"></span>
+                    Send me security updates and product news
+                </label>
+            </div>
+            
+            <button type="submit" class="primary-button">
+                <span>Create Secure Account</span>
+            </button>
+        </form>
+        
+        <!-- Social Signup -->
+        <div class="social-divider">
+            <span>or sign up with</span>
+        </div>
+        
+        <div class="social-buttons">
+            <button class="social-button google-btn">
+                <i class="fab fa-google"></i>
+                <span>Sign up with Google</span>
+            </button>
+            <button class="social-button github-btn">
+                <i class="fab fa-github"></i>
+                <span>Sign up with GitHub</span>
+            </button>
+        </div>
+        
+        <!-- Login Link -->
+        <div class="login-link">
+            <p>Already have an account? <a href="/login" class="signin-link">Sign in</a></p>
+        </div>
+        
+        <!-- Trust Badges -->
+        <div class="trust-badges">
+            <div class="badge-item">
+                <span class="badge-icon"><i class="fas fa-lock"></i></span>
+                <span class="badge-text">256-bit Encryption</span>
+            </div>
+            <div class="badge-item">
+                <span class="badge-icon"><i class="fas fa-shield-alt"></i></span>
+                <span class="badge-text">Quantum-Resistant</span>
+            </div>
+            <div class="badge-item">
+                <span class="badge-icon"><i class="fas fa-ban"></i></span>
+                <span class="badge-text">No-Logs Policy</span>
+            </div>
+            <div class="badge-item">
+                <span class="badge-icon"><i class="fas fa-credit-card"></i></span>
+                <span class="badge-text">30-Day Guarantee</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+/* Signup Page Styles */
+.signup-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    position: relative;
+}
+
+.signup-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%230ea5e9' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    opacity: 0.3;
+}
+
+.signup-card {
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(20px);
+    border-radius: 24px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    width: 100%;
+    max-width: 520px;
+    padding: 3rem;
+    position: relative;
+    z-index: 1;
+}
+
+.signup-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.signup-logo {
+    margin-bottom: 1.5rem;
+}
+
+.signup-logo img {
+    width: 80px;
+    height: 80px;
+}
+
+.page-title {
+    font-size: 2rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #1e3a8a, #0ea5e9);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+}
+
+.signup-card-header {
+    margin-bottom: 2rem;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 0.5rem;
+}
+
+.card-subtitle {
+    color: #64748b;
+    font-size: 0.95rem;
+}
+
+.signup-form {
+    margin-bottom: 1.5rem;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.form-group {
+    margin-bottom: 1.25rem;
+}
+
+
+.input-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: #f8fafc;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.input-container:focus-within {
+    border-color: #0ea5e9;
+    background: white;
+    box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+}
+
+.input-container input {
+    flex: 1;
+    padding: 1rem;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    color: #1e293b;
+}
+
+.input-container input::placeholder {
+    color: #94a3b8;
+    font-weight: 400;
+}
+
+.password-toggle {
+    background: none;
+    border: none;
+    padding: 0 1rem;
+    cursor: pointer;
+    font-size: 1.25rem;
+}
+
+.password-hint {
+    display: block;
+    margin-top: 0.5rem;
+    color: #64748b;
+    font-size: 0.85rem;
+}
+
+.plan-selection {
+    margin: 1.5rem 0;
+}
+
+.plan-selection h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 1rem;
+}
+
+.plan-options {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+}
+
+.plan-option {
+    position: relative;
+    cursor: pointer;
+}
+
+.plan-option input {
+    position: absolute;
+    opacity: 0;
+}
+
+.plan-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem 0.5rem;
+    background: #f8fafc;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.plan-option input:checked + .plan-card {
+    border-color: #0ea5e9;
+    background: linear-gradient(135deg, rgba(14, 165, 233, 0.05), rgba(30, 58, 138, 0.05));
+    box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+}
+
+.plan-card.recommended {
+    border-color: #0ea5e9;
+}
+
+.plan-badge {
+    position: absolute;
+    top: -10px;
+    background: linear-gradient(135deg, #1e3a8a, #0ea5e9);
+    color: white;
+    font-size: 0.7rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 20px;
+    font-weight: 600;
+}
+
+.plan-name {
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 0.25rem;
+}
+
+.plan-price {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #0ea5e9;
+    margin-bottom: 0.25rem;
+}
+
+.plan-features {
+    font-size: 0.8rem;
+    color: #64748b;
+}
+
+.form-options {
+    margin-bottom: 1rem;
+}
+
+.terms-checkbox,
+.newsletter-checkbox {
+    display: flex;
+    align-items: flex-start;
+    cursor: pointer;
+    user-select: none;
+    font-size: 0.9rem;
+    color: #64748b;
+}
+
+.terms-checkbox input,
+.newsletter-checkbox input {
+    position: absolute;
+    opacity: 0;
+}
+
+.checkmark {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: #f8fafc;
+    border: 2px solid #e2e8f0;
+    border-radius: 6px;
+    margin-right: 0.75rem;
+    flex-shrink: 0;
+    position: relative;
+}
+
+.terms-checkbox input:checked + .checkmark,
+.newsletter-checkbox input:checked + .checkmark {
+    background: linear-gradient(135deg, #1e3a8a, #0ea5e9);
+    border-color: #0ea5e9;
+}
+
+.terms-checkbox input:checked + .checkmark::after,
+.newsletter-checkbox input:checked + .checkmark::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.terms-checkbox a,
+.newsletter-checkbox a {
+    color: #0ea5e9;
+    text-decoration: none;
+}
+
+.terms-checkbox a:hover,
+.newsletter-checkbox a:hover {
+    text-decoration: underline;
+}
+
+.primary-button {
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(135deg, #1e3a8a, #0ea5e9);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.primary-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(14, 165, 233, 0.3);
+}
+
+.social-divider {
+    text-align: center;
+    margin: 1.5rem 0;
+    color: #94a3b8;
+    font-size: 0.9rem;
+    position: relative;
+}
+
+.social-divider::before,
+.social-divider::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 40%;
+    height: 1px;
+    background: #e2e8f0;
+}
+
+.social-divider::before {
+    left: 0;
+}
+
+.social-divider::after {
+    right: 0;
+}
+
+.social-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.social-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    background: white;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #475569;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.social-button:hover {
+    border-color: #cbd5e1;
+    background: #f8fafc;
+}
+
+.google-btn:hover {
+    border-color: #ea4335;
+    color: #ea4335;
+}
+
+.github-btn:hover {
+    border-color: #333;
+    color: #333;
+}
+
+.login-link {
+    text-align: center;
+    color: #64748b;
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+}
+
+.signin-link {
+    color: #0ea5e9;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.signin-link:hover {
+    text-decoration: underline;
+}
+
+.trust-badges {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+}
+
+.badge-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    background: #f8fafc;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    color: #64748b;
+}
+
+.badge-icon {
+    color: #0ea5e9;
+}
+
+.badge-icon i {
+    font-size: 1rem;
+}
+
+@media (max-width: 640px) {
+    .signup-card {
+        padding: 2rem;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .plan-options {
+        grid-template-columns: 1fr;
+    }
+    
+    .social-buttons {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+
+<script>
+function togglePassword(fieldId) {
+    const passwordInput = document.getElementById(fieldId);
+    const toggleIcon = document.getElementById(fieldId === 'password' ? 'passwordToggle' : 'confirmToggle');
+    
+    if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        toggleIcon.innerHTML = '<i class="fas fa-eye-slash"></i>';
+    } else {
+        passwordInput.type = 'password';
+        toggleIcon.innerHTML = '<i class="fas fa-eye"></i>';
+    }
+}
+
+// Handle signup form submission
+document.getElementById('signupForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const formData = new FormData(e.target);
+    
+    // Validate passwords match
+    if (formData.get('password') !== formData.get('confirmPassword')) {
+        alert('Passwords do not match!');
+        return;
+    }
+    
+    // Check terms agreement
+    if (!formData.get('terms')) {
+        alert('Please agree to the Terms of Service');
+        return;
+    }
+    
+    const data = {
+        username: formData.get('username'),
+        email: formData.get('email'),
+        password: formData.get('password'),
+        plan: formData.get('plan'),
+        newsletter: formData.get('newsletter') ? true : false
+    };
+    
+    try {
+        // For demo, just show success and redirect to login
+        alert('Account created successfully! Please sign in.');
+        window.kyberLinkRouter.navigate('/login');
+    } catch (error) {
+        alert('Signup error: ' + error.message);
+    }
+});
+</script>

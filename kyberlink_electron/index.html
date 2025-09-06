@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KyberShield VPN</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <div class="loading-screen">
+            <div class="logo-container">
+                <img src="assets/icons/icon.png" alt="KyberShield" class="logo">
+                <h1>KyberShield VPN</h1>
+                <p class="tagline">Quantum-Resistant Security</p>
+            </div>
+            <div class="loading-spinner"></div>
+            <p class="loading-text">Connecting to KyberShield servers...</p>
+        </div>
+        
+        <!-- This will be replaced with the actual app content -->
+        <iframe id="app-frame" style="display: none;"></iframe>
+    </div>
+    
+    <script>
+        // Load the web application
+        window.addEventListener('DOMContentLoaded', () => {
+            const appFrame = document.getElementById('app-frame');
+            const loadingScreen = document.querySelector('.loading-screen');
+            
+            // In production, this would load the deployed URL
+            const appUrl = process.env.NODE_ENV === 'development' 
+                ? 'http://localhost:5000' 
+                : 'https://app.kybershield.com';
+            
+            // For now, show a standalone interface
+            setTimeout(() => {
+                loadingScreen.style.display = 'none';
+                document.getElementById('app').innerHTML = `
+                    <div class="standalone-app">
+                        <header class="app-header">
+                            <div class="header-left">
+                                <img src="assets/icons/icon.png" alt="KyberShield" class="header-logo">
+                                <span class="header-title">KyberShield VPN</span>
+                            </div>
+                            <div class="header-right">
+                                <button class="settings-btn" onclick="openSettings()">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                        <circle cx="12" cy="12" r="3"></circle>
+                                        <path d="M12 1v6m0 6v6m9-9h-6m-6 0H3"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </header>
+                        
+                        <main class="app-main">
+                            <div class="connection-card">
+                                <div class="connection-status disconnected" id="status">
+                                    <div class="status-icon"></div>
+                                    <h2>Disconnected</h2>
+                                    <p>Your connection is not protected</p>
+                                </div>
+                                
+                                <button class="connect-btn" id="connectBtn" onclick="toggleConnection()">
+                                    Connect
+                                </button>
+                                
+                                <div class="server-selector">
+                                    <label>Selected Server:</label>
+                                    <select id="serverSelect" onchange="selectServer()">
+                                        <option value="auto">Automatic (Best)</option>
+                                        <option value="us-east">United States - East</option>
+                                        <option value="us-west">United States - West</option>
+                                        <option value="eu-central">Europe - Frankfurt</option>
+                                        <option value="uk-london">United Kingdom</option>
+                                        <option value="asia-tokyo">Asia - Tokyo</option>
+                                        <option value="canada">Canada - Toronto</option>
+                                        <option value="australia">Australia - Sydney</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="stats-grid">
+                                <div class="stat-card">
+                                    <div class="stat-label">Download</div>
+                                    <div class="stat-value" id="downloadSpeed">0 Mbps</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-label">Upload</div>
+                                    <div class="stat-value" id="uploadSpeed">0 Mbps</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-label">Latency</div>
+                                    <div class="stat-value" id="latency">-- ms</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-label">Duration</div>
+                                    <div class="stat-value" id="duration">--:--:--</div>
+                                </div>
+                            </div>
+                            
+                            <div class="features-section">
+                                <h3>Security Features</h3>
+                                <div class="feature-list">
+                                    <div class="feature-item active">
+                                        <span class="feature-icon">🛡️</span>
+                                        <span>Quantum-Resistant Encryption</span>
+                                    </div>
+                                    <div class="feature-item active">
+                                        <span class="feature-icon">🔒</span>
+                                        <span>Kill Switch Enabled</span>
+                                    </div>
+                                    <div class="feature-item active">
+                                        <span class="feature-icon">🌐</span>
+                                        <span>DNS Leak Protection</span>
+                                    </div>
+                                    <div class="feature-item active">
+                                        <span class="feature-icon">👁️</span>
+                                        <span>Zero-Log Policy</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </main>
+                    </div>
+                `;
+                
+                // Initialize connection handlers
+                initializeApp();
+            }, 2000);
+        });
+        
+        let isConnected = false;
+        let connectionTimer = null;
+        let startTime = null;
+        
+        function initializeApp() {
+            // Listen for Electron menu events
+            if (window.electronAPI) {
+                window.electronAPI.onQuickConnect(() => {
+                    if (!isConnected) {
+                        toggleConnection();
+                    }
+                });
+                
+                window.electronAPI.onDisconnect(() => {
+                    if (isConnected) {
+                        toggleConnection();
+                    }
+                });
+                
+                window.electronAPI.onShowServers(() => {
+                    document.getElementById('serverSelect').focus();
+                });
+            }
+        }
+        
+        function toggleConnection() {
+            const btn = document.getElementById('connectBtn');
+            const status = document.getElementById('status');
+            
+            if (!isConnected) {
+                // Connect
+                btn.textContent = 'Connecting...';
+                btn.disabled = true;
+                
+                setTimeout(() => {
+                    isConnected = true;
+                    btn.textContent = 'Disconnect';
+                    btn.disabled = false;
+                    btn.classList.add('connected');
+                    
+                    status.classList.remove('disconnected');
+                    status.classList.add('connected');
+                    status.innerHTML = `
+                        <div class="status-icon"></div>
+                        <h2>Connected</h2>
+                        <p>Your connection is protected</p>
+                        <small>IP: 10.0.0.${Math.floor(Math.random() * 255)}</small>
+                    `;
+                    
+                    // Start stats
+                    startTime = Date.now();
+                    startStatsUpdate();
+                    
+                    // Notify main process
+                    if (window.electronAPI) {
+                        const server = document.getElementById('serverSelect').selectedOptions[0].text;
+                        window.electronAPI.sendConnectionStatus({
+                            connected: true,
+                            server: server
+                        });
+                    }
+                }, 2000);
+            } else {
+                // Disconnect
+                isConnected = false;
+                btn.textContent = 'Connect';
+                btn.classList.remove('connected');
+                
+                status.classList.remove('connected');
+                status.classList.add('disconnected');
+                status.innerHTML = `
+                    <div class="status-icon"></div>
+                    <h2>Disconnected</h2>
+                    <p>Your connection is not protected</p>
+                `;
+                
+                // Stop stats
+                stopStatsUpdate();
+                
+                // Notify main process
+                if (window.electronAPI) {
+                    window.electronAPI.sendConnectionStatus({
+                        connected: false,
+                        server: null
+                    });
+                }
+            }
+        }
+        
+        function startStatsUpdate() {
+            updateStats();
+            connectionTimer = setInterval(updateStats, 1000);
+        }
+        
+        function stopStatsUpdate() {
+            if (connectionTimer) {
+                clearInterval(connectionTimer);
+                connectionTimer = null;
+            }
+            
+            document.getElementById('downloadSpeed').textContent = '0 Mbps';
+            document.getElementById('uploadSpeed').textContent = '0 Mbps';
+            document.getElementById('latency').textContent = '-- ms';
+            document.getElementById('duration').textContent = '--:--:--';
+        }
+        
+        function updateStats() {
+            if (!isConnected) return;
+            
+            // Simulate stats
+            document.getElementById('downloadSpeed').textContent = 
+                (45 + Math.random() * 10).toFixed(1) + ' Mbps';
+            document.getElementById('uploadSpeed').textContent = 
+                (12 + Math.random() * 5).toFixed(1) + ' Mbps';
+            document.getElementById('latency').textContent = 
+                Math.floor(20 + Math.random() * 15) + ' ms';
+            
+            // Update duration
+            if (startTime) {
+                const elapsed = Date.now() - startTime;
+                const hours = Math.floor(elapsed / 3600000);
+                const minutes = Math.floor((elapsed % 3600000) / 60000);
+                const seconds = Math.floor((elapsed % 60000) / 1000);
+                document.getElementById('duration').textContent = 
+                    `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+            }
+        }
+        
+        function selectServer() {
+            console.log('Server selected:', document.getElementById('serverSelect').value);
+        }
+        
+        function openSettings() {
+            console.log('Opening settings...');
+            // In a real app, this would open a settings window
+        }
+    </script>
+</body>
+</html>

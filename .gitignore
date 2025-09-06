@@ -1,0 +1,48 @@
+# Dependencies
+node_modules/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Build outputs
+dist/
+build/
+out/
+*.AppImage
+*.dmg
+*.exe
+*.deb
+*.rpm
+*.tar.gz
+
+# Environment
+.env
+.env.local
+*.key
+*.crt
+*.pem
+
+# Database
+users.db
+*.sqlite
+*.sqlite3
+
+# IDE
+.vscode/
+.idea/
+*.swp
+.DS_Store
+
+# Logs
+*.log
+npm-debug.log*
+
+# Flutter
+kyberlink_vpn/.dart_tool/
+kyberlink_vpn/.packages
+kyberlink_vpn/build/
+
+# Temporary
+tmp/
+temp/

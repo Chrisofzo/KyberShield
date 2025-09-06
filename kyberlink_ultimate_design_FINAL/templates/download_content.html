@@ -1,0 +1,693 @@
+<!-- Download Page Content -->
+<section class="download-section">
+    <div class="section-container">
+        <div class="section-header">
+            <div class="section-badge">
+                <i class="fas fa-download"></i>
+                <span>Download KyberShield</span>
+            </div>
+            <h1 class="section-title">Get KyberShield for Your Device</h1>
+            <p class="section-subtitle">
+                Download our quantum-resistant VPN client for your platform. 
+                Available for Windows, macOS, and Linux.
+            </p>
+        </div>
+
+        <!-- Platform Detection Banner -->
+        <div class="platform-detection-banner" id="platformBanner">
+            <div class="detection-content">
+                <i class="fas fa-info-circle"></i>
+                <span id="detectedPlatform">Detecting your platform...</span>
+            </div>
+        </div>
+
+        <!-- Download Cards Grid -->
+        <div class="download-grid">
+            <!-- Windows Download Card -->
+            <div class="download-card" data-platform="windows">
+                <div class="platform-header">
+                    <i class="fab fa-windows platform-icon"></i>
+                    <h3>Windows</h3>
+                </div>
+                <div class="version-info">
+                    <span class="version">Version 1.0.0</span>
+                    <span class="size">87.3 MB</span>
+                </div>
+                <div class="requirements">
+                    <p>Windows 10 or later (64-bit)</p>
+                </div>
+                <div class="features-list">
+                    <ul>
+                        <li><i class="fas fa-check"></i> Native Windows integration</li>
+                        <li><i class="fas fa-check"></i> System tray support</li>
+                        <li><i class="fas fa-check"></i> Auto-start on boot</li>
+                        <li><i class="fas fa-check"></i> Windows Firewall integration</li>
+                    </ul>
+                </div>
+                <button class="download-btn primary-btn" onclick="downloadApp('windows')">
+                    <i class="fas fa-download"></i>
+                    Download for Windows
+                </button>
+                <div class="installer-type">NSIS Installer (.exe)</div>
+            </div>
+
+            <!-- macOS Download Card -->
+            <div class="download-card" data-platform="macos">
+                <div class="platform-header">
+                    <i class="fab fa-apple platform-icon"></i>
+                    <h3>macOS</h3>
+                </div>
+                <div class="version-info">
+                    <span class="version">Version 1.0.0</span>
+                    <span class="size">92.1 MB</span>
+                </div>
+                <div class="requirements">
+                    <p>macOS 11.0 Big Sur or later</p>
+                </div>
+                <div class="features-list">
+                    <ul>
+                        <li><i class="fas fa-check"></i> Native macOS app</li>
+                        <li><i class="fas fa-check"></i> Menu bar integration</li>
+                        <li><i class="fas fa-check"></i> Touch Bar support</li>
+                        <li><i class="fas fa-check"></i> Keychain integration</li>
+                    </ul>
+                </div>
+                <button class="download-btn primary-btn" onclick="downloadApp('macos')">
+                    <i class="fas fa-download"></i>
+                    Download for macOS
+                </button>
+                <div class="installer-type">DMG Installer (.dmg)</div>
+            </div>
+
+            <!-- Linux Download Card -->
+            <div class="download-card" data-platform="linux">
+                <div class="platform-header">
+                    <i class="fab fa-linux platform-icon"></i>
+                    <h3>Linux</h3>
+                </div>
+                <div class="version-info">
+                    <span class="version">Version 1.0.0</span>
+                    <span class="size">78.5 - 85.7 MB</span>
+                </div>
+                <div class="requirements">
+                    <p>Linux kernel 5.4 or later</p>
+                </div>
+                <div class="linux-variants">
+                    <div class="variant-option">
+                        <button class="variant-btn" onclick="downloadApp('linux', 'deb')">
+                            <i class="fas fa-cube"></i>
+                            .deb (Ubuntu/Debian)
+                        </button>
+                    </div>
+                    <div class="variant-option">
+                        <button class="variant-btn" onclick="downloadApp('linux', 'rpm')">
+                            <i class="fas fa-cube"></i>
+                            .rpm (Fedora/RHEL)
+                        </button>
+                    </div>
+                    <div class="variant-option">
+                        <button class="variant-btn" onclick="downloadApp('linux', 'appimage')">
+                            <i class="fas fa-cube"></i>
+                            AppImage (Universal)
+                        </button>
+                    </div>
+                </div>
+                <div class="features-list">
+                    <ul>
+                        <li><i class="fas fa-check"></i> System tray integration</li>
+                        <li><i class="fas fa-check"></i> NetworkManager support</li>
+                        <li><i class="fas fa-check"></i> Command-line interface</li>
+                        <li><i class="fas fa-check"></i> Auto-connect on startup</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Apps Coming Soon -->
+        <div class="mobile-section">
+            <h2>Mobile Apps Coming Soon</h2>
+            <div class="mobile-grid">
+                <div class="mobile-card">
+                    <i class="fab fa-android mobile-icon"></i>
+                    <h4>Android</h4>
+                    <p>Available on Google Play Store</p>
+                    <button class="notify-btn" onclick="notifyMe('android')">
+                        <i class="fas fa-bell"></i> Notify Me
+                    </button>
+                </div>
+                <div class="mobile-card">
+                    <i class="fab fa-apple mobile-icon"></i>
+                    <h4>iOS</h4>
+                    <p>Available on App Store</p>
+                    <button class="notify-btn" onclick="notifyMe('ios')">
+                        <i class="fas fa-bell"></i> Notify Me
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Installation Instructions -->
+        <div class="installation-section">
+            <h2>Installation Instructions</h2>
+            <div class="instruction-tabs">
+                <button class="tab-btn active" onclick="showInstructions('windows')">Windows</button>
+                <button class="tab-btn" onclick="showInstructions('macos')">macOS</button>
+                <button class="tab-btn" onclick="showInstructions('linux')">Linux</button>
+            </div>
+            <div class="instruction-content" id="instructionContent">
+                <div class="instruction-panel active" data-os="windows">
+                    <ol>
+                        <li>Download the KyberShield installer for Windows</li>
+                        <li>Double-click the downloaded .exe file</li>
+                        <li>Follow the installation wizard</li>
+                        <li>Launch KyberShield from the Start Menu or Desktop</li>
+                        <li>Sign in with your account credentials</li>
+                    </ol>
+                </div>
+                <div class="instruction-panel" data-os="macos">
+                    <ol>
+                        <li>Download the KyberShield .dmg file</li>
+                        <li>Double-click the .dmg to mount it</li>
+                        <li>Drag KyberShield to your Applications folder</li>
+                        <li>Launch KyberShield from Applications or Launchpad</li>
+                        <li>Sign in with your account credentials</li>
+                    </ol>
+                </div>
+                <div class="instruction-panel" data-os="linux">
+                    <ol>
+                        <li>Download the appropriate package for your distribution</li>
+                        <li>For .deb: <code>sudo dpkg -i kybershield_1.0.0_amd64.deb</code></li>
+                        <li>For .rpm: <code>sudo rpm -i kybershield-1.0.0.x86_64.rpm</code></li>
+                        <li>For AppImage: <code>chmod +x KyberShield-1.0.0.AppImage && ./KyberShield-1.0.0.AppImage</code></li>
+                        <li>Launch KyberShield from your application menu</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- System Requirements -->
+        <div class="requirements-section">
+            <h2>System Requirements</h2>
+            <div class="requirements-grid">
+                <div class="requirement-card">
+                    <h4><i class="fab fa-windows"></i> Windows</h4>
+                    <ul>
+                        <li>Windows 10 version 1903 or later</li>
+                        <li>64-bit processor</li>
+                        <li>4 GB RAM (8 GB recommended)</li>
+                        <li>200 MB available disk space</li>
+                    </ul>
+                </div>
+                <div class="requirement-card">
+                    <h4><i class="fab fa-apple"></i> macOS</h4>
+                    <ul>
+                        <li>macOS 11.0 Big Sur or later</li>
+                        <li>Intel or Apple Silicon processor</li>
+                        <li>4 GB RAM (8 GB recommended)</li>
+                        <li>200 MB available disk space</li>
+                    </ul>
+                </div>
+                <div class="requirement-card">
+                    <h4><i class="fab fa-linux"></i> Linux</h4>
+                    <ul>
+                        <li>Linux kernel 5.4 or later</li>
+                        <li>x86_64 architecture</li>
+                        <li>4 GB RAM (8 GB recommended)</li>
+                        <li>200 MB available disk space</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+.download-section {
+    padding: 80px 20px;
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    min-height: 100vh;
+}
+
+.platform-detection-banner {
+    background: linear-gradient(90deg, #1e3a8a, #0ea5e9);
+    color: white;
+    padding: 15px 20px;
+    border-radius: 12px;
+    margin: 30px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.detection-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+}
+
+.download-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+    margin: 40px 0;
+}
+
+.download-card {
+    background: white;
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.download-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.platform-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.platform-icon {
+    font-size: 48px;
+    color: #0ea5e9;
+}
+
+.platform-header h3 {
+    font-size: 28px;
+    color: #1e293b;
+    margin: 0;
+}
+
+.version-info {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 15px;
+    color: #64748b;
+    font-size: 14px;
+}
+
+.requirements {
+    color: #475569;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.features-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.features-list li {
+    padding: 8px 0;
+    color: #475569;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.features-list i {
+    color: #10b981;
+    font-size: 14px;
+}
+
+.download-btn {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(90deg, #1e3a8a, #0ea5e9);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.download-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);
+}
+
+.installer-type {
+    text-align: center;
+    margin-top: 10px;
+    color: #94a3b8;
+    font-size: 13px;
+}
+
+.linux-variants {
+    margin: 20px 0;
+}
+
+.variant-btn {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    background: #f1f5f9;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #475569;
+    font-weight: 500;
+}
+
+.variant-btn:hover {
+    background: #e2e8f0;
+    border-color: #0ea5e9;
+    color: #0ea5e9;
+}
+
+.mobile-section {
+    margin: 60px 0;
+    text-align: center;
+}
+
+.mobile-section h2 {
+    font-size: 32px;
+    color: #1e293b;
+    margin-bottom: 30px;
+}
+
+.mobile-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.mobile-card {
+    background: white;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.mobile-icon {
+    font-size: 64px;
+    color: #94a3b8;
+    margin-bottom: 15px;
+}
+
+.notify-btn {
+    padding: 10px 20px;
+    background: #f1f5f9;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    color: #475569;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 15px;
+}
+
+.notify-btn:hover {
+    background: #0ea5e9;
+    border-color: #0ea5e9;
+    color: white;
+}
+
+.installation-section {
+    margin: 60px 0;
+    background: white;
+    padding: 40px;
+    border-radius: 16px;
+}
+
+.installation-section h2 {
+    font-size: 28px;
+    color: #1e293b;
+    margin-bottom: 25px;
+}
+
+.instruction-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.tab-btn {
+    padding: 12px 24px;
+    background: none;
+    border: none;
+    color: #64748b;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+}
+
+.tab-btn.active {
+    color: #0ea5e9;
+    border-bottom-color: #0ea5e9;
+}
+
+.instruction-panel {
+    display: none;
+}
+
+.instruction-panel.active {
+    display: block;
+}
+
+.instruction-panel ol {
+    line-height: 1.8;
+    color: #475569;
+}
+
+.instruction-panel code {
+    background: #f1f5f9;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    color: #e11d48;
+}
+
+.requirements-section {
+    margin: 60px 0;
+}
+
+.requirements-section h2 {
+    font-size: 28px;
+    color: #1e293b;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.requirements-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.requirement-card {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.requirement-card h4 {
+    font-size: 20px;
+    color: #1e293b;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.requirement-card ul {
+    list-style: none;
+    padding: 0;
+}
+
+.requirement-card li {
+    padding: 8px 0;
+    color: #64748b;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.requirement-card li:last-child {
+    border-bottom: none;
+}
+
+@media (max-width: 768px) {
+    .download-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .instruction-tabs {
+        flex-direction: column;
+    }
+    
+    .requirements-grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+
+<script>
+// Platform detection
+document.addEventListener('DOMContentLoaded', function() {
+    detectPlatform();
+});
+
+function detectPlatform() {
+    const userAgent = navigator.userAgent.toLowerCase();
+    let platform = 'Unknown';
+    let recommended = '';
+    
+    if (userAgent.indexOf('win') > -1) {
+        platform = 'Windows';
+        recommended = 'windows';
+    } else if (userAgent.indexOf('mac') > -1) {
+        platform = 'macOS';
+        recommended = 'macos';
+    } else if (userAgent.indexOf('linux') > -1) {
+        platform = 'Linux';
+        recommended = 'linux';
+    } else if (userAgent.indexOf('android') > -1) {
+        platform = 'Android';
+        recommended = 'android';
+    } else if (userAgent.indexOf('iphone') > -1 || userAgent.indexOf('ipad') > -1) {
+        platform = 'iOS';
+        recommended = 'ios';
+    }
+    
+    const banner = document.getElementById('detectedPlatform');
+    if (banner) {
+        banner.textContent = `We detected you're using ${platform}. Download the recommended version below.`;
+        
+        // Highlight recommended card
+        if (recommended && recommended !== 'android' && recommended !== 'ios') {
+            const card = document.querySelector(`[data-platform="${recommended}"]`);
+            if (card) {
+                card.style.border = '2px solid #0ea5e9';
+                card.style.boxShadow = '0 0 20px rgba(14, 165, 233, 0.2)';
+            }
+        }
+    }
+}
+
+function downloadApp(platform, variant = null) {
+    // Track download
+    console.log(`Downloading KyberShield for ${platform}${variant ? ' - ' + variant : ''}`);
+    
+    // Simulate download - in production, this would trigger actual download
+    let downloadUrl = '';
+    if (platform === 'windows') {
+        downloadUrl = '/downloads/windows/KyberShield-Setup-1.0.0.exe';
+    } else if (platform === 'macos') {
+        downloadUrl = '/downloads/macos/KyberShield-1.0.0.dmg';
+    } else if (platform === 'linux') {
+        if (variant === 'deb') {
+            downloadUrl = '/downloads/linux/kybershield_1.0.0_amd64.deb';
+        } else if (variant === 'rpm') {
+            downloadUrl = '/downloads/linux/kybershield-1.0.0.x86_64.rpm';
+        } else if (variant === 'appimage') {
+            downloadUrl = '/downloads/linux/KyberShield-1.0.0.AppImage';
+        }
+    }
+    
+    // Show download message
+    showNotification(`Starting download for ${platform}...`, 'info');
+    
+    // In production, trigger actual download
+    // window.location.href = downloadUrl;
+}
+
+function notifyMe(platform) {
+    showNotification(`You'll be notified when KyberShield for ${platform} is available!`, 'success');
+}
+
+function showInstructions(os) {
+    // Update tab buttons
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    event.target.classList.add('active');
+    
+    // Update instruction panels
+    document.querySelectorAll('.instruction-panel').forEach(panel => {
+        panel.classList.remove('active');
+    });
+    document.querySelector(`[data-os="${os}"]`).classList.add('active');
+}
+
+function showNotification(message, type) {
+    // Create notification element
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    notification.innerHTML = `
+        <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-info-circle'}"></i>
+        <span>${message}</span>
+    `;
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: ${type === 'success' ? '#10b981' : '#0ea5e9'};
+        color: white;
+        padding: 15px 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        z-index: 10000;
+        animation: slideIn 0.3s ease;
+    `;
+    
+    document.body.appendChild(notification);
+    
+    // Remove after 3 seconds
+    setTimeout(() => {
+        notification.style.animation = 'slideOut 0.3s ease';
+        setTimeout(() => notification.remove(), 300);
+    }, 3000);
+}
+
+// Add animation styles
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes slideIn {
+        from {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+    
+    @keyframes slideOut {
+        from {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        to {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+    }
+`;
+document.head.appendChild(style);
+</script>

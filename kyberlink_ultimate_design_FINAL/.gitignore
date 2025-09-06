@@ -1,0 +1,15 @@
+dist/
+node_modules/
+*.AppImage
+*.dmg  
+*.exe
+*.tar.gz
+*.deb
+*.rpm
+*.pkg
+*.msi
+*.zip
+*.asar
+*.bin
+*.log
+build/

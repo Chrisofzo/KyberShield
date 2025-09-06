@@ -1,0 +1,533 @@
+/* ===============================================
+   KyberLink VPN - SPA Styles
+   Router and page transition effects
+   =============================================== */
+
+/* CSS Variables for SPA */
+:root {
+  --bg-primary-light: #ffffff;
+  --bg-secondary-light: #f8fafc;
+  --text-primary-light: #1e293b;
+  --text-secondary-light: rgba(30, 41, 59, 0.8);
+  --text-muted-light: rgba(30, 41, 59, 0.6);
+}
+
+/* Page Content Container */
+#page-content {
+    min-height: calc(100vh - 80px);
+    margin-top: 80px;
+    transition: opacity 0.3s ease;
+}
+
+/* Loading and Error States */
+.page-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 50vh;
+    color: #64748b;
+    font-family: 'Inter', sans-serif;
+}
+
+.page-error {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 50vh;
+    padding: 2rem;
+    text-align: center;
+    font-family: 'Inter', sans-serif;
+}
+
+.page-error h3 {
+    color: #ef4444;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.page-error p {
+    color: #64748b;
+    margin-bottom: 1.5rem;
+    max-width: 400px;
+    line-height: 1.6;
+}
+
+.page-error button {
+    background: linear-gradient(135deg, #00d4ff 0%, #0ea5e9 100%);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.page-error button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 212, 255, 0.3);
+}
+
+/* Login Page Full Height - Override all other styles */
+#page-content .login-container {
+    min-height: calc(100vh - 80px) !important;
+    display: flex !important;
+    align-items: stretch !important;
+    margin-top: -80px !important;
+    padding-top: 80px !important;
+    position: absolute !important;
+    top: 80px !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    height: calc(100vh - 80px) !important;
+}
+
+/* Login Page Styling - High Specificity */
+#page-content .login-container,
+.login-container {
+    display: flex !important;
+    min-height: 100vh !important;
+    background: #ffffff !important;
+    width: 100% !important;
+    position: relative !important;
+    flex-direction: row !important;
+}
+
+#page-content .login-left,
+.login-left {
+    flex: 1 !important;
+    background: linear-gradient(135deg, #00d4ff 0%, #0ea5e9 50%, #8b5cf6 100%) !important;
+    padding: 60px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: white !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+.login-left::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(1px);
+}
+
+.login-branding {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 400px;
+}
+
+.brand-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 32px;
+}
+
+.brand-logo h1 {
+    font-size: 32px;
+    font-weight: 800;
+    margin: 0;
+    color: white;
+}
+
+.login-branding h2 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: white;
+}
+
+.login-branding p {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 40px;
+    opacity: 0.9;
+}
+
+.security-highlights {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.highlight-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.highlight-item i {
+    width: 20px;
+    text-align: center;
+    opacity: 0.9;
+}
+
+#page-content .login-right,
+.login-right {
+    flex: 1 !important;
+    padding: 60px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: white !important;
+}
+
+.login-form-container {
+    width: 100%;
+    max-width: 400px;
+}
+
+.form-header {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.form-header h2 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 8px;
+}
+
+.form-header p {
+    color: rgba(30, 41, 59, 0.8);
+    font-size: 16px;
+}
+
+.demo-notice {
+    background: rgba(14, 165, 233, 0.1);
+    border: 1px solid rgba(14, 165, 233, 0.2);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #0ea5e9;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    font-weight: 500;
+    color: #1e293b;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.input-wrapper {
+    position: relative;
+}
+
+.input-wrapper input {
+    width: 100%;
+    padding: 12px 16px 12px 44px;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 16px;
+    background: white;
+    transition: all 0.3s ease;
+}
+
+.input-wrapper input:focus {
+    outline: none;
+    border-color: #0ea5e9;
+    box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+}
+
+.input-icon {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94a3b8;
+    font-size: 16px;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #94a3b8;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    transition: color 0.2s ease;
+}
+
+.password-toggle:hover {
+    color: #0ea5e9;
+}
+
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    font-size: 14px;
+}
+
+.remember-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    color: rgba(30, 41, 59, 0.8);
+}
+
+.remember-checkbox input {
+    margin: 0;
+}
+
+.forgot-password {
+    color: #0ea5e9;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.forgot-password:hover {
+    color: #0284c7;
+}
+
+.login-btn {
+    width: 100%;
+    background: linear-gradient(135deg, #00d4ff 0%, #0ea5e9 50%, #8b5cf6 100%);
+    color: white;
+    border: none;
+    padding: 16px 24px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 24px;
+}
+
+.login-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(14, 165, 233, 0.4);
+}
+
+.divider {
+    text-align: center;
+    margin: 24px 0;
+    position: relative;
+}
+
+.divider::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: #e2e8f0;
+}
+
+.divider span {
+    background: white;
+    padding: 0 16px;
+    color: rgba(30, 41, 59, 0.6);
+    font-size: 14px;
+    position: relative;
+}
+
+.alternative-actions {
+    text-align: center;
+}
+
+.alternative-actions p {
+    margin: 8px 0;
+    color: rgba(30, 41, 59, 0.8);
+    font-size: 14px;
+}
+
+.register-link,
+.demo-link {
+    color: #0ea5e9;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.register-link:hover,
+.demo-link:hover {
+    color: #0284c7;
+}
+
+/* Loading States */
+.page-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 60vh;
+    color: var(--text-secondary-light);
+}
+
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(14, 165, 233, 0.1);
+    border-top: 3px solid #0ea5e9;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 16px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.page-error {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 60vh;
+    color: #ef4444;
+    font-size: 18px;
+}
+
+/* Navigation Active States */
+.nav-menu a.active {
+    background: rgba(14, 165, 233, 0.1);
+    color: #0ea5e9;
+    border-radius: 8px;
+    padding: 8px 16px;
+    margin: 0 4px;
+    font-weight: 600;
+}
+
+/* Page-specific styles */
+.download-section-page {
+    padding: 80px 0 120px;
+    background: var(--bg-secondary-light);
+    min-height: calc(100vh - 80px);
+}
+
+.comparison-section-page {
+    padding: 80px 0 120px;
+    background: var(--bg-primary-light);
+    min-height: calc(100vh - 80px);
+}
+
+/* Download Page Enhancements */
+.installation-guide {
+    margin-top: 80px;
+    padding: 40px;
+    background: var(--glass-bg-light);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border-light);
+    border-radius: 20px;
+    text-align: center;
+}
+
+.installation-guide h3 {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-primary-light);
+    margin-bottom: 32px;
+}
+
+.guide-steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 32px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.step {
+    display: flex;
+    align-items: center;
+    text-align: left;
+    gap: 20px;
+}
+
+.step-number {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    background: var(--primary-gradient);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.step-content h4 {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary-light);
+    margin-bottom: 8px;
+}
+
+.step-content p {
+    color: var(--text-secondary-light);
+    line-height: 1.5;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .nav-menu {
+        display: none;
+    }
+    
+    .guide-steps {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+    
+    .step {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    #page-content {
+        margin-top: 70px;
+    }
+}
+
+/* Page Transition Effects */
+.page-fade-enter {
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.page-fade-enter-active {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}

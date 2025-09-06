@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="70" height="70" viewBox="0 0 70 70" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Shield Gradient -->
+    <linearGradient id="shieldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00d4ff"/>
+      <stop offset="35%" stop-color="#0ea5e9"/>
+      <stop offset="70%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#ec4899" stop-opacity="0.9"/>
+    </linearGradient>
+    
+    <!-- Glow Effect -->
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/> 
+      </feMerge>
+    </filter>
+    
+    <!-- Quantum Grid -->
+    <pattern id="quantumGrid" x="0" y="0" width="6" height="6" patternUnits="userSpaceOnUse">
+      <rect width="6" height="6" fill="none"/>
+      <path d="M0,3 L6,3 M3,0 L3,6" stroke="rgba(255,255,255,0.2)" stroke-width="0.5"/>
+      <circle cx="3" cy="3" r="0.6" fill="rgba(0,212,255,0.4)">
+        <animate attributeName="r" values="0.6;1;0.6" dur="3s" repeatCount="indefinite"/>
+      </circle>
+    </pattern>
+    
+    <!-- Shimmer -->
+    <linearGradient id="shimmer" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="rgba(255,255,255,0)"/>
+      <stop offset="50%" stop-color="rgba(255,255,255,0.6)"/>
+      <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+      <animateTransform attributeName="gradientTransform" type="translate" values="-70 0; 140 0; -70 0" dur="4s" repeatCount="indefinite"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Shield Shape -->
+  <path id="shield" 
+        d="M35 10 C35 10, 42 8, 50 10 C58 12, 60 18, 60 25 C60 35, 55 45, 45 50 C40 52, 40 52, 35 50 C25 45, 10 35, 10 25 C10 18, 12 12, 20 10 C28 8, 35 10, 35 10 Z" 
+        fill="url(#shieldGradient)" 
+        filter="url(#glow)"
+        opacity="0.95"/>
+  
+  <!-- Quantum Grid Pattern -->
+  <clipPath id="shieldClip">
+    <path d="M35 10 C35 10, 42 8, 50 10 C58 12, 60 18, 60 25 C60 35, 55 45, 45 50 C40 52, 40 52, 35 50 C25 45, 10 35, 10 25 C10 18, 12 12, 20 10 C28 8, 35 10, 35 10 Z"/>
+  </clipPath>
+  
+  <rect x="10" y="10" width="50" height="50" 
+        fill="url(#quantumGrid)" 
+        clip-path="url(#shieldClip)" 
+        opacity="0.8"/>
+  
+  <!-- Border -->
+  <path d="M35 10 C35 10, 42 8, 50 10 C58 12, 60 18, 60 25 C60 35, 55 45, 45 50 C40 52, 40 52, 35 50 C25 45, 10 35, 10 25 C10 18, 12 12, 20 10 C28 8, 35 10, 35 10 Z" 
+        fill="none" 
+        stroke="rgba(255,255,255,0.3)" 
+        stroke-width="1.5"/>
+  
+  <!-- Inner Highlight -->
+  <path d="M35 15 C38 14, 41 14, 44 15 C48 16, 50 20, 50 24 C50 30, 47 36, 42 39 C40 40, 40 40, 35 39 C30 36, 20 30, 20 24 C20 20, 22 16, 26 15 C29 14, 32 14, 35 15 Z" 
+        fill="rgba(255,255,255,0.15)"/>
+  
+  <!-- Holographic Shimmer -->
+  <rect x="10" y="10" width="50" height="50" 
+        fill="url(#shimmer)" 
+        clip-path="url(#shieldClip)" 
+        opacity="0.4"/>
+  
+  <!-- Lock Symbol -->
+  <g opacity="0.9">
+    <rect x="32" y="32" width="6" height="7" rx="1" fill="rgba(255,255,255,0.9)"/>
+    <path d="M33 32 C33 30, 34 29, 35 29 C36 29, 37 30, 37 32" 
+          fill="none" 
+          stroke="rgba(255,255,255,0.9)" 
+          stroke-width="1.5"/>
+    <circle cx="35" cy="34" r="1" fill="#00d4ff">
+      <animate attributeName="fill" values="#00d4ff;#ffffff;#00d4ff" dur="2s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+</svg>

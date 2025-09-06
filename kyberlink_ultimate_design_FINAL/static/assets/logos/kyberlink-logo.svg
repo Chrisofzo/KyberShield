@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="300" height="80" viewBox="0 0 300 80" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <!-- Definitions -->
+  <defs>
+    <!-- Main Shield Gradient -->
+    <linearGradient id="shieldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00d4ff" stop-opacity="1"/>
+      <stop offset="35%" stop-color="#0ea5e9" stop-opacity="1"/>
+      <stop offset="70%" stop-color="#8b5cf6" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#ec4899" stop-opacity="0.9"/>
+    </linearGradient>
+    
+    <!-- Shield Glow -->
+    <filter id="shieldGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/> 
+      </feMerge>
+    </filter>
+    
+    <!-- Holographic Effect -->
+    <filter id="holographic" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="1" result="blur"/>
+      <feSpecularLighting result="specOut" in="blur" specularConstant="2" specularExponent="20" lighting-color="#ffffff">
+        <fePointLight x="30" y="20" z="50"/>
+      </feSpecularLighting>
+      <feComposite in="specOut" in2="SourceAlpha" operator="in" result="specOut2"/>
+      <feComposite in="SourceGraphic" in2="specOut2" operator="arithmetic" k1="0" k2="1" k3="1" k4="0"/>
+    </filter>
+    
+    <!-- Quantum Grid Pattern -->
+    <pattern id="quantumGrid" x="0" y="0" width="8" height="8" patternUnits="userSpaceOnUse">
+      <rect width="8" height="8" fill="none"/>
+      <path d="M0,4 L8,4 M4,0 L4,8" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
+      <circle cx="4" cy="4" r="0.8" fill="rgba(0,212,255,0.3)"/>
+    </pattern>
+    
+    <!-- Typography Gradient -->
+    <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00d4ff"/>
+      <stop offset="100%" stop-color="#0ea5e9"/>
+    </linearGradient>
+    
+    <!-- Text Glow -->
+    <filter id="textGlow">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/> 
+      </feMerge>
+    </filter>
+    
+    <!-- Shimmer Animation -->
+    <linearGradient id="shimmer" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="rgba(255,255,255,0)" stop-opacity="0"/>
+      <stop offset="50%" stop-color="rgba(255,255,255,0.8)" stop-opacity="1"/>
+      <stop offset="100%" stop-color="rgba(255,255,255,0)" stop-opacity="0"/>
+      <animateTransform attributeName="gradientTransform" type="translate" values="-100 0; 400 0; -100 0" dur="3s" repeatCount="indefinite"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Shield Base -->
+  <g id="shieldGroup">
+    <!-- Shield Shadow -->
+    <path d="M25 15 C25 15, 35 12, 45 15 C55 18, 60 25, 60 35 C60 50, 50 58, 40 62 C35 64, 35 64, 30 62 C20 58, 10 50, 10 35 C10 25, 15 18, 25 15 Z" 
+          fill="rgba(0,0,0,0.2)" transform="translate(2,2)"/>
+    
+    <!-- Main Shield -->
+    <path id="mainShield" 
+          d="M25 15 C25 15, 35 12, 45 15 C55 18, 60 25, 60 35 C60 50, 50 58, 40 62 C35 64, 35 64, 30 62 C20 58, 10 50, 10 35 C10 25, 15 18, 25 15 Z" 
+          fill="url(#shieldGradient)" 
+          filter="url(#shieldGlow)"
+          opacity="0.95"/>
+    
+    <!-- Quantum Grid Inside Shield -->
+    <clipPath id="shieldClip">
+      <path d="M25 15 C25 15, 35 12, 45 15 C55 18, 60 25, 60 35 C60 50, 50 58, 40 62 C35 64, 35 64, 30 62 C20 58, 10 50, 10 35 C10 25, 15 18, 25 15 Z"/>
+    </clipPath>
+    
+    <rect x="10" y="15" width="50" height="50" fill="url(#quantumGrid)" clip-path="url(#shieldClip)" opacity="0.7">
+      <animate attributeName="opacity" values="0.5;0.9;0.5" dur="4s" repeatCount="indefinite"/>
+    </rect>
+    
+    <!-- Shield Border -->
+    <path d="M25 15 C25 15, 35 12, 45 15 C55 18, 60 25, 60 35 C60 50, 50 58, 40 62 C35 64, 35 64, 30 62 C20 58, 10 50, 10 35 C10 25, 15 18, 25 15 Z" 
+          fill="none" 
+          stroke="rgba(255,255,255,0.4)" 
+          stroke-width="1"/>
+    
+    <!-- Inner Shield Highlight -->
+    <path d="M27 18 C30 17, 33 17, 36 18 C42 20, 45 26, 45 32 C45 42, 40 48, 35 50 C32 51, 32 51, 30 50 C25 48, 20 42, 20 32 C20 26, 23 20, 27 18 Z" 
+          fill="rgba(255,255,255,0.2)" 
+          opacity="0.6"/>
+    
+    <!-- Holographic Shimmer -->
+    <rect x="10" y="15" width="50" height="50" fill="url(#shimmer)" clip-path="url(#shieldClip)" opacity="0.3"/>
+  </g>
+  
+  <!-- Lock Icon (for connected state) -->
+  <g id="lockIcon" opacity="0.8">
+    <rect x="32" y="35" width="6" height="8" rx="1" fill="rgba(255,255,255,0.9)"/>
+    <path d="M33 35 C33 32, 34 31, 35 31 C36 31, 37 32, 37 35" 
+          fill="none" 
+          stroke="rgba(255,255,255,0.9)" 
+          stroke-width="1.5"/>
+    <circle cx="35" cy="37" r="1" fill="rgba(0,212,255,1)">
+      <animate attributeName="r" values="1;1.5;1" dur="2s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+  
+  <!-- Typography -->
+  <g id="wordmark">
+    <text x="85" y="45" 
+          font-family="Inter, system-ui, -apple-system, sans-serif" 
+          font-size="24" 
+          font-weight="800" 
+          fill="url(#textGradient)"
+          filter="url(#textGlow)">KyberLink</text>
+    
+    <!-- Subtitle -->
+    <text x="85" y="58" 
+          font-family="Inter, system-ui, -apple-system, sans-serif" 
+          font-size="10" 
+          font-weight="500" 
+          fill="rgba(139, 92, 246, 0.8)"
+          opacity="0.8">QUANTUM-RESISTANT VPN</text>
+  </g>
+  
+  <!-- Animated States -->
+  <style>
+    .logo-connected #mainShield {
+      filter: url(#shieldGlow) drop-shadow(0 0 15px rgba(0,212,255,0.8));
+      animation: connectedPulse 2s ease-in-out infinite;
+    }
+    
+    .logo-connected #quantumGrid {
+      animation: gridShimmer 3s ease-in-out infinite;
+    }
+    
+    .logo-disconnected #mainShield {
+      opacity: 0.5;
+      filter: none;
+    }
+    
+    .logo-disconnected #lockIcon {
+      opacity: 0.3;
+    }
+    
+    @keyframes connectedPulse {
+      0%, 100% { opacity: 0.95; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.02); }
+    }
+    
+    @keyframes gridShimmer {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 0.9; }
+    }
+    
+    /* Hover Effects */
+    .kyberlink-logo:hover #shieldGroup {
+      transform: scale(1.05);
+      transition: transform 0.3s ease;
+    }
+    
+    .kyberlink-logo:hover #wordmark {
+      filter: url(#textGlow) drop-shadow(0 2px 8px rgba(0,212,255,0.3));
+      transition: filter 0.3s ease;
+    }
+  </style>
+</svg>
