@@ -1,1 +1,0 @@
-This is a placeholder for KyberShield VPN Windows installer. Please build on Windows using 'npm run build:win'
