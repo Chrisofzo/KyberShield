@@ -1,18 +1,20 @@
 const { app, BrowserWindow, ipcMain, Menu, Tray, shell, dialog } = require('electron');
 const path = require('path');
 const fs = require('fs');
+const { startBackend, stopBackend } = require('./backend-launcher');
 
 let mainWindow;
 let tray;
 let isConnected = false;
 let currentServer = null;
+let backendReady = false;
 
 // Enable live reload for Electron development
 try {
   require('electron-reloader')(module);
 } catch {}
 
-function createWindow() {
+async function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1200,
     height: 800,
@@ -29,13 +31,89 @@ function createWindow() {
     backgroundColor: '#1e293b'
   });
 
-  // Load the web app - in production, this would be the deployed URL
-  if (process.env.NODE_ENV === 'development') {
-    mainWindow.loadURL('http://localhost:5000');
-  } else {
-    // In production, load the built React app or connect to deployed server
-    mainWindow.loadFile('index.html');
+  // Show loading screen while starting backend
+  const loadingHTML = `
+    <!DOCTYPE html>
+    <html style="height: 100%; margin: 0;">
+    <head>
+      <style>
+        body {
+          height: 100%;
+          margin: 0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+          color: white;
+        }
+        .loader { text-align: center; }
+        .spinner {
+          width: 50px;
+          height: 50px;
+          border: 4px solid rgba(255, 255, 255, 0.3);
+          border-top-color: white;
+          border-radius: 50%;
+          animation: spin 1s linear infinite;
+          margin: 0 auto 20px;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        h1 { font-size: 24px; margin: 10px 0; }
+        p { font-size: 14px; opacity: 0.8; }
+      </style>
+    </head>
+    <body>
+      <div class="loader">
+        <div class="spinner"></div>
+        <h1>KyberShield VPN</h1>
+        <p>Starting secure backend services...</p>
+      </div>
+    </body>
+    </html>
+  `;
+  
+  mainWindow.loadURL(`data:text/html;charset=utf-8,${encodeURIComponent(loadingHTML)}`);
+
+  // Start backend if not already running
+  if (!backendReady) {
+    try {
+      await startBackend();
+      backendReady = true;
+      console.log('Backend started successfully');
+    } catch (error) {
+      console.error('Failed to start backend:', error);
+      dialog.showErrorBox('Backend Error', 
+        'Failed to start VPN backend service.\n\n' +
+        'Please ensure Python 3 is installed and try again.\n\n' +
+        'Error: ' + error.message
+      );
+    }
   }
+
+  // Wait a moment then load the actual app
+  setTimeout(() => {
+    // Try loading from backend first
+    fetch('http://localhost:5000/api/health')
+      .then(response => {
+        if (response.ok) {
+          console.log('Backend is running, loading from server');
+          mainWindow.loadURL('http://localhost:5000');
+        } else {
+          throw new Error('Backend not responding');
+        }
+      })
+      .catch(error => {
+        console.log('Backend not available, loading static UI');
+        // Load the embedded UI directly
+        const uiPath = path.join(__dirname, '..', 'kyberlink_ultimate_design_FINAL', 'build', 'index.html');
+        if (fs.existsSync(uiPath)) {
+          mainWindow.loadFile(uiPath);
+        } else {
+          // Load embedded simple UI
+          mainWindow.loadURL('http://localhost:5000');
+        }
+      });
+  }, 2000);
 
   // Create application menu
   createMenu();
@@ -251,8 +329,8 @@ ipcMain.on('minimize-to-tray', () => {
 });
 
 // App event handlers
-app.whenReady().then(() => {
-  createWindow();
+app.whenReady().then(async () => {
+  await createWindow();
   createTray();
   
   app.on('activate', () => {
@@ -263,9 +341,14 @@ app.whenReady().then(() => {
 });
 
 app.on('window-all-closed', () => {
+  stopBackend();
   if (process.platform !== 'darwin') {
     app.quit();
   }
+});
+
+app.on('before-quit', () => {
+  stopBackend();
 });
 
 // Prevent multiple instances
